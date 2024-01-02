@@ -19,6 +19,12 @@
                     </ul>
                     <ul class="right">
                         <li><a href="{% url 'calendar' %}">Calendar</a></li>
+                        <li>
+                            <form action="{% url 'logout' %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit">Log Out</button>
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </nav>

@@ -5,5 +5,6 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('calendar/', views.calendarIndex, name='calendar'),
     path('calendar/m<int:curMonth>d<int:i>y<int:curYear>', views.calendarDetail, name='day'),
+    path('accounts/signup/', views.signup, name="signup"),
 ]
 

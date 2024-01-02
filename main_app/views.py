@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from datetime import datetime, timedelta
 import calendar
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 
 date = datetime.now()
 months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -15,6 +18,7 @@ todayYear = curYear
 def home(request):
     return render(request, 'home.html')
 
+@login_required
 def calendarIndex(request):
     global curMonth, curYear
     if request.POST:
@@ -55,8 +59,28 @@ def calendarIndex(request):
         'lastDateOfPrevMonth': lastDateOfPrevMonth, 'lastInactiveDays': lastInactiveDays, 'todayDay': todayDay, 'todayMonth': todayMonth, 'todayYear': todayYear 
     })
 
+@login_required
 def calendarDetail(request, curMonth, i, curYear):
     month = months[curMonth - 1]
     return render(request, 'day.html', {
         'curMonth': month, 'curDay': i, 'curYear': curYear
     })
+
+def signup(request):
+  error_message = ''
+  if request.method == 'POST':
+    # This is how to create a 'user' form object
+    # that includes the data from the browser
+    form = UserCreationForm(request.POST)
+    if form.is_valid():
+      # This will add the user to the database
+      user = form.save()
+      # This is how we log a user in via code
+      login(request, user)
+      return redirect('calendar')
+    else:
+      error_message = 'You made an oopsie doopsie, go ahead and try again'
+  # A bad POST or a GET request, so render signup.html with an empty form
+  form = UserCreationForm()
+  context = {'form': form, 'error_message': error_message}
+  return render(request, 'registration/signup.html', context)

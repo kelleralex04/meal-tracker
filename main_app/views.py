@@ -4,6 +4,7 @@ import calendar
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from .models import Meal
 
 date = datetime.now()
 months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -68,9 +69,10 @@ def calendarDetail(request, curMonth, i, curYear):
 
 @login_required
 def calendarMeal(request, curMonth, i, curYear):
+    meal = Meal.objects.filter(date=datetime(curYear,curMonth,i))
     month = months[curMonth - 1]
     return render(request, 'daymeal.html', {
-        'curMonth': month, 'curDay': i, 'curYear': curYear
+        'curMonth': month, 'curDay': i, 'curYear': curYear, 'meal': meal
     })
 
 @login_required

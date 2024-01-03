@@ -1,7 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>{{ curMonth }} {{ curDay }}, {{ curYear }}</h1>
-<h2>Day Meal</h2>
+<h1>Meals for {{ curMonth }} {{ curDay }}, {{ curYear }}</h1>
+
+<div class="food-card">
+    {% for m in meal%}
+        <p>Meal: {{ m.get_mealType_display }}</p>
+        <p>Food: {{ m.food }}</p>
+        <p>Quantity: {{ m.amount }}</p>
+        {% if m.favorited %}
+         <p>Favorite: *</p>
+        {% endif %}
+    {% endfor %}
+</div>
 
 {% endblock %}

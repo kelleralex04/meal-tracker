@@ -64,22 +64,22 @@ def calendarIndex(request):
 def calendarDetail(request, curMonth, i, curYear):
     month = months[curMonth - 1]
     return render(request, 'day.html', {
-        'curMonth': month, 'curDay': i, 'curYear': curYear
+        'month': month, 'curDay': i, 'curYear': curYear, 'curMonth': curMonth,
     })
 
 @login_required
-def calendarMeal(request, curMonth, i, curYear):
-    meal = Meal.objects.filter(date=datetime(curYear,curMonth,i))
+def calendarMeal(request, curMonth, curDay, curYear):
+    meal = Meal.objects.filter(date=datetime(curYear,curMonth,curDay))
     month = months[curMonth - 1]
     return render(request, 'daymeal.html', {
-        'curMonth': month, 'curDay': i, 'curYear': curYear, 'meal': meal
+        'curMonth': month, 'curDay': curDay, 'curYear': curYear, 'meal': meal
     })
 
 @login_required
-def calendarBody(request, curMonth, i, curYear):
+def calendarBody(request, curMonth, curDay, curYear):
     month = months[curMonth - 1]
     return render(request, 'daybody.html', {
-        'curMonth': month, 'curDay': i, 'curYear': curYear
+        'curMonth': month, 'curDay': curDay, 'curYear': curYear
     })
 
 def signup(request):

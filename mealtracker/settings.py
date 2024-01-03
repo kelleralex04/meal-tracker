@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from datetime import datetime
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -128,5 +130,10 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL= '/calendar/'
+date = datetime.now()
+todayDay = date.day
+todayMonth = date.month
+todayYear = date.year
+
+LOGIN_REDIRECT_URL= f'/calendar/m{todayMonth}d{todayDay}y{todayYear}'
 LOGOUT_REDIRECT_URL= '/'

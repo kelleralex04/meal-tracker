@@ -18,23 +18,24 @@ a {
     text-decoration: none;
 }
 
-/* not rendering */
 .calendarBody {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    background: #bcd3f1;
+    background: white;
+    min-height: 90vh;
+    width:100vw;
 }
 
 .wrapper {
-    width: 450px;
-    background: #F2F2EF;
-    border-radius: 10px;
+    width: 95%;
+    height: 80vh;
+    margin-bottom: 10vh;
 }
 
 .calendar {
     padding: 20px;
+    height: 90%;
 }
 
 .calendar ul{
@@ -42,19 +43,25 @@ a {
     list-style: none;
     flex-wrap: wrap;
     text-align: center;
+    gap: 2px;
 }
 
 .calendar ul li {
-    width: calc(100% / 7);
+    width: calc(99% / 7);
 }
 
 .calendar .days {
     margin-bottom: 20px;
+    height: 100%;
 }
 
 .calendar .days li {
     cursor: pointer;
-    margin-top: 30px;
+    background: lightgrey;
+}
+
+.wrapper {
+    background: white;
 }
 
 .wrapper header {

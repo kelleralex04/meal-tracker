@@ -18,6 +18,7 @@
                         <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Meal Tracker</a></li>
                     </ul>
                     <ul class="right">
+                        {% if user.is_authenticated %}
                         <li><a href="{% url 'calendar' %}">Calendar</a></li>
                         <li>
                             <form action="{% url 'logout' %}" method="POST">
@@ -25,6 +26,10 @@
                                 <button type="submit">Log Out</button>
                             </form>
                         </li>
+                        {% else %}
+                        <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                        <li><a href="{% url 'login' %}">Log In</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </nav>
@@ -59,11 +64,11 @@
                         {% for i in activeDays %}
                             {% if i == todayDay and curMonth == todayMonth and curYear == todayYear %}
                                 <li class="active">
-                                    <a href="{% url 'day' curMonth i curYear %}" style="color: red">{{ i }}</a>
+                                    <a href="{% url 'day' curMonth i curYear %}" style="color: red; display: block; height: 100%;">{{ i }}</a>
                                 </li>
                             {% else %}
                                 <li>
-                                    <a href="{% url 'day' curMonth i curYear %}" style="color: black">{{ i }}</a>
+                                    <a href="{% url 'day' curMonth i curYear %}" style="color: black; display: block; height: 100%;">{{ i }}</a>
                                 </li>
                             {% endif %}
                         {% endfor %}
@@ -74,6 +79,5 @@
                 </div>
             </div>
         </main>
-        <!-- useless comment -->
     </body>
 </html>

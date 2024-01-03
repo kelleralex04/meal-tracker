@@ -83,3 +83,35 @@ header .currentDate {
 .active {
     color: #fb3640;
 }
+
+#dayBody {
+    background-color: #15151e;
+    font-family: Futura, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #dayHeader {
+    background-color: #1a1933;
+    color: #aaa8d6;
+    text-align: center;
+    padding: 1em;
+  }
+  
+  #dayMain {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+  .column {
+    flex: 1;
+    margin-right: 20px;
+    padding: 20px;
+    text-align: center;
+    color: #8987c5;
+    background-color: #20202d;
+    border: 1px solid #36354b;
+    border-radius: 8px;
+    height: 100vh;
+  }

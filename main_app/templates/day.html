@@ -1,7 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>{{ curMonth }} {{ curDay }}, {{ curYear }}</h1>
-<h2>Day</h2>
+<h1>{{ month }} {{ curDay }}, {{ curYear }}</h1>
+
+<body id="dayBody">
+    <header id="dayHeader">
+        <h1>Today</h1>
+    </header>
+    <main id="dayMain">
+        <div class="column">
+            <h2><a href="{% url 'daybody' curMonth curDay curYear %}">Measurement Data</a></h2>
+        </div>
+        <div class="column">
+            <h2><a href="{% url 'daymeal' curMonth curDay curYear %}">Meal Plan</a></h2>
+        </div>
+        <div class="column">
+            <h2>Workout Plan</h2>
+        </div>
+    </main>
+</body>
 
 {% endblock %}

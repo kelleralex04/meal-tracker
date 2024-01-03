@@ -66,6 +66,20 @@ def calendarDetail(request, curMonth, i, curYear):
         'curMonth': month, 'curDay': i, 'curYear': curYear
     })
 
+@login_required
+def calendarMeal(request, curMonth, i, curYear):
+    month = months[curMonth - 1]
+    return render(request, 'daymeal.html', {
+        'curMonth': month, 'curDay': i, 'curYear': curYear
+    })
+
+@login_required
+def calendarBody(request, curMonth, i, curYear):
+    month = months[curMonth - 1]
+    return render(request, 'daybody.html', {
+        'curMonth': month, 'curDay': i, 'curYear': curYear
+    })
+
 def signup(request):
   error_message = ''
   if request.method == 'POST':

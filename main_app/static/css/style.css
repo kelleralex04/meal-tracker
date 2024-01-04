@@ -80,33 +80,33 @@ a {
 }
 
 #dayBody {
-    background-color: #15151e;
+    background-color: #424242;
     font-family: Futura, sans-serif;
     margin: 0;
     padding: 0;
-}
-
-#dayHeader {
-    background-color: #1a1933;
-    color: #aaa8d6;
+  }
+  
+  #dayHeader {
+    background-color: #212121;
+    color: #536dfe;
     text-align: center;
     padding: 1em;
-}
-
-#dayMain {
+  }
+  
+  #dayMain {
     display: flex;
     justify-content: space-between;
     padding: 20px;
-}
-
-.column {
+  }
+  
+  .column {
     flex: 1;
     margin-right: 20px;
     padding: 20px;
     text-align: center;
-    color: #8987c5;
-    background-color: #20202d;
-    border: 1px solid #36354b;
+    color: #3d5afe;
+    background-color: #212121;
+    border: 2px solid #616161;
     border-radius: 8px;
     height: 100vh;
-}
+  }

@@ -13,8 +13,10 @@
   <table>
     {{ form.as_table }}
   </table>
-  <input type="submit" value="Submit!" class="btn">
+    <input type="submit" value="Submit!" class="btn">
 </form>
-
+{% if object %}
+  <a href="{% url 'foods_delete' object.id %}">Delete</a>
+{% endif %}
 
 {% endblock %}

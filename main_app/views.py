@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import  LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from .models import Meal, Food
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView
 
 
@@ -120,4 +120,7 @@ class FoodList(LoginRequiredMixin, ListView):
 class FoodUpdate(LoginRequiredMixin, UpdateView):
     model = Food
     fields = '__all__'
-    
+
+class FoodDelete(LoginRequiredMixin, DeleteView):
+    model = Food
+    success_url = '/foods'

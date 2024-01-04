@@ -12,10 +12,17 @@ MEALCHOICE = (
     ('A', 'Additional Meal'),
 )
 
-class Meal(models.Model):
-    food = models.CharField()
+class Food(models.Model):
+    name = models.CharField()
+    calories = models.IntegerField()
+    carbs = models.IntegerField()
+    protein = models.IntegerField()
     amount = models.IntegerField()
-    date = models.DateField(default=datetime.now, blank=True)
+
+class Meal(models.Model):
+    food = models.ManyToManyField(Food)
+    servings = models.IntegerField()
+    date = models.DateField(default=datetime.now)
     favorited = models.BooleanField(default=False)
     mealType = models.CharField(
         max_length=1,
@@ -31,4 +38,4 @@ class Profile(models.Model):
 
 class BodyData(models.Model):
     weight = models.IntegerField()
-    date = models.DateField(default=datetime.now, blank=True)
+    date = models.DateField(default=datetime.now)

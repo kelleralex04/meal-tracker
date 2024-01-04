@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import  LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from .models import Meal, Food
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView
 
 
@@ -113,3 +113,8 @@ class FoodCreate(LoginRequiredMixin, CreateView):
 
 class FoodList(LoginRequiredMixin, ListView):
     model = Food
+
+class FoodUpdate(LoginRequiredMixin, UpdateView):
+    model = Food
+    fields = '__all__'
+    

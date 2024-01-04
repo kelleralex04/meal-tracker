@@ -10,4 +10,5 @@ urlpatterns = [
     path('accounts/signup/', views.signup, name="signup"),
     path('foods/', views.FoodList.as_view(), name="foods_list"),
     path('foods/create/', views.FoodCreate.as_view(), name="foods_create"),
+    path('foods/<int:pk>/update/', views.FoodUpdate.as_view(), name='foods_update'),
 ]

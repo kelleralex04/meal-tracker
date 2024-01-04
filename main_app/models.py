@@ -20,6 +20,9 @@ class Food(models.Model):
     amount = models.IntegerField(verbose_name='Weight(g)')
     def __str__(self):
         return self.name
+    
+    def get_absolute_url(self):
+        return reverse('foods_update', kwargs={'food_id': self.id})
 
 class Meal(models.Model):
     food = models.ManyToManyField(Food)

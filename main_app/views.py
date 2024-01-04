@@ -5,7 +5,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import  LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
-from .models import Meal, Food
+from .models import Meal, Food, Profile
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView
 
@@ -101,7 +101,7 @@ def signup(request):
             user = form.save()
             # This is how we log a user in via code
             login(request, user)
-            return redirect('calendar')
+            return redirect('profile_create')
         else:
             error_message = 'You made an oopsie doopsie, go ahead and try again'
     # A bad POST or a GET request, so render signup.html with an empty form
@@ -120,4 +120,8 @@ class FoodList(LoginRequiredMixin, ListView):
 class FoodUpdate(LoginRequiredMixin, UpdateView):
     model = Food
     fields = '__all__'
-    
+
+class ProfileCreate(LoginRequiredMixin, CreateView):
+    model = Profile
+    fields = '__all__'
+    success_url = '/calendar'

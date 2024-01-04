@@ -37,7 +37,7 @@
         <main class="calendarBody">
             <div class="wrapper">
                 <header>
-                    <p class="current-date">{{ curMonthText}} {{ curYear }}</p>
+                    <h1>{{ curMonthText}} {{ curYear }}</h1>
                     <div class="icons">
                         <form action="{% url 'calendar' %}" method="POST">
                             {% csrf_token %}
@@ -59,21 +59,33 @@
                     </ul>
                     <ul class="days">
                         {% for i in firstInactiveDays %}
-                            <li class="inactive">{{ i }}</li>
+                            <li class="inactive"><span style="display: block; height: 100%; text-align: right; margin-right: 15px; margin-top: 10px;">{{ i }}</span></li>
                         {% endfor %}
                         {% for i in activeDays %}
                             {% if i == todayDay and curMonth == todayMonth and curYear == todayYear %}
                                 <li class="active">
-                                    <a href="{% url 'day' curMonth i curYear %}" style="color: red; display: block; height: 100%;">{{ i }}</a>
+                                    <a href="{% url 'day' curMonth i curYear %}" style="display: block; height: 100%; text-align: right; margin-right: 15px; margin-top: 10px;">
+                                        {{ i }}
+                                    </a>
+                                    {% for m in meal %}
+                                        {% if m.date.day == i %}
+                                            <div style="color: white; margin-top: -100px; background: blue;">Example</div>
+                                        {% endif %}
+                                    {% endfor %}
                                 </li>
                             {% else %}
                                 <li>
-                                    <a href="{% url 'day' curMonth i curYear %}" style="color: black; display: block; height: 100%;">{{ i }}</a>
+                                    <a href="{% url 'day' curMonth i curYear %}" style="display: block; height: 100%;text-align: right; margin-right: 15px; margin-top: 10px;">{{ i }}</a>
+                                    {% for m in meal %}
+                                        {% if m.date.day == i %}
+                                            <div style="color: white; margin-top: -100px; background: blue;">Example</div>
+                                        {% endif %}
+                                    {% endfor %}
                                 </li>
                             {% endif %}
                         {% endfor %}
                         {% for i in lastInactiveDays %}
-                            <li class="inactive">{{ i }}</li>
+                            <li class="inactive"><span style="display: block; height: 100%; text-align: right; margin-right: 15px; margin-top: 10px;">{{ i }}</span></li>
                         {% endfor %}
                     </ul>
                 </div>

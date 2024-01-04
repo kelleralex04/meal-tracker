@@ -69,20 +69,16 @@
                                     <a href="{% url 'day' curMonth i curYear %}" style="display: block; height: 100%; text-align: right; margin-right: 15px; margin-top: 10px;">
                                         {{ i }}
                                     </a>
-                                    {% for m in meal %}
-                                        {% if m.date.day == i %}
-                                            <div style="color: white; margin-top: -100px; background: blue;">Example</div>
-                                        {% endif %}
-                                    {% endfor %}
+                                    {% if i in mealdates %}
+                                        <div style="color: white; margin-top: -100px; background: blue;">Meal</div>
+                                    {% endif %}
                                 </li>
                             {% else %}
                                 <li>
                                     <a href="{% url 'day' curMonth i curYear %}" style="display: block; height: 100%;text-align: right; margin-right: 15px; margin-top: 10px;">{{ i }}</a>
-                                    {% for m in meal %}
-                                        {% if m.date.day == i %}
-                                            <div style="color: white; margin-top: -100px; background: blue;">Example</div>
-                                        {% endif %}
-                                    {% endfor %}
+                                    {% if i in mealdates %}
+                                        <div style="color: white; margin-top: -100px; background: blue;">Meal</div>
+                                    {% endif %}
                                 </li>
                             {% endif %}
                         {% endfor %}

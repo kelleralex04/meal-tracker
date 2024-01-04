@@ -59,10 +59,13 @@ def calendarIndex(request):
 
     curMonthText = months[curMonth - 1]
     meal = Meal.objects.filter(date__gte=datetime(curYear, curMonth, 1), date__lte=datetime(curYear, curMonth, lastDateofMonth[1]))
+    mealdates = set()
+    for m in meal:
+        mealdates.add(m.date.day)
 
     return render(request, 'calendar.html', {
         'curMonthText': curMonthText, 'curYear': curYear, 'curMonth': curMonth, 'curDay': curDay, 'firstInactiveDays': firstInactiveDays, 'activeDays': activeDays, 
-        'lastDateOfPrevMonth': lastDateOfPrevMonth, 'lastInactiveDays': lastInactiveDays, 'todayDay': todayDay, 'todayMonth': todayMonth, 'todayYear': todayYear, 'meal': meal
+        'lastDateOfPrevMonth': lastDateOfPrevMonth, 'lastInactiveDays': lastInactiveDays, 'todayDay': todayDay, 'todayMonth': todayMonth, 'todayYear': todayYear, 'mealdates': mealdates
     })
 
 @login_required

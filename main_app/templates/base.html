@@ -20,6 +20,7 @@
                     <ul class="right">
                         {% if user.is_authenticated %}
                             <li><a href="{% url 'calendar' %}">Calendar</a></li>
+                            <li><a href="{% url 'foods_list' %}">Food List</a></li>
                             <li><a href="{% url 'foods_create' %}">Add Food</a></li>
                             <li>
                                 <form action="{% url 'logout' %}" method="POST">

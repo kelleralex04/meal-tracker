@@ -17,10 +17,12 @@ class Food(models.Model):
     calories = models.IntegerField()
     carbs = models.IntegerField()
     protein = models.IntegerField()
-    amount = models.IntegerField()
-
+    amount = models.IntegerField(verbose_name='Weight(g)')
     def __str__(self):
         return self.name
+    
+    def get_absolute_url(self):
+        return reverse('foods_update', kwargs={'food_id': self.id})
 
 class Meal(models.Model):
     food = models.ManyToManyField(Food)

@@ -3,8 +3,12 @@ from datetime import datetime, timedelta
 import calendar
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import  LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
-from .models import Meal
+from .models import Meal, Food
+from django.views.generic.edit import CreateView
+from django.views.generic import ListView
+
 
 date = datetime.now()
 months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -101,3 +105,11 @@ def signup(request):
     form = UserCreationForm()
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
+
+class FoodCreate(LoginRequiredMixin, CreateView):
+    model = Food
+    fields = '__all__'
+    success_url = '/foods'
+
+class FoodList(LoginRequiredMixin, ListView):
+    model = Food

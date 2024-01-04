@@ -8,4 +8,6 @@ urlpatterns = [
     path('calendar/m<int:curMonth>d<int:curDay>y<int:curYear>/meal/', views.calendarMeal, name='daymeal'),
     path('calendar/m<int:curMonth>d<int:curDay>y<int:curYear>/body/', views.calendarBody, name='daybody'),
     path('accounts/signup/', views.signup, name="signup"),
+    path('foods/', views.FoodList.as_view(), name="foods_list"),
+    path('foods/create/', views.FoodCreate.as_view(), name="foods_create"),
 ]

@@ -11,9 +11,9 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     </head>
     <body>
-        <header class="navbar-fixed grey darken-3">
+        <header class="navbar-fixed black">
             <nav>
-                <div class="nav-wrapper grey darken-3">
+                <div class="nav-wrapper black">
                     <ul>
                         <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Meal Tracker</a></li>
                     </ul>
@@ -25,7 +25,7 @@
                         <li>
                             <form action="{% url 'logout' %}" method="POST">
                                 {% csrf_token %}
-                                <button type="submit">Log Out</button>
+                                <button type="submit" class="logoutButton grey">Log Out</button>
                             </form>
                         </li>
                         {% else %}
@@ -37,19 +37,19 @@
             </nav>
         </header>
         <main class="calendarBody">
-            <div class="wrapper">
+            <div class="wrapper ">
                 <header>
-                    <h1>{{ curMonthText}} {{ curYear }}</h1>
+                    <h1 class="grey-text text-lighten-1">{{ curMonthText}} {{ curYear }}</h1>
                     <div class="icons">
                         <form action="{% url 'calendar' %}" method="POST">
                             {% csrf_token %}
                             <input type="hidden" name="curMonth" value="{{ curMonth }}">
-                            <button name="prev" value="-"><</button>
-                            <button name="next" value="+">></button>
+                            <button name="prev" value="-" class="grey"><</button>
+                            <button name="next" value="+" class="grey">></button>
                         </form>
                     </div>
                 </header>
-                <div class="calendar">
+                <div class="calendar grey-text text-lighten-3">
                     <ul class="weeks">
                         <li>Sun</li>
                         <li>Mon</li>
@@ -70,14 +70,14 @@
                                         {{ i }}
                                     </a>
                                     {% if i in mealdates %}
-                                        <div style="color: white; margin-top: -100px; background: blue;">Meal</div>
+                                        <div style="color: white; margin-top: -100px; background: #1976d2;">Meal</div>
                                     {% endif %}
                                 </li>
                             {% else %}
                                 <li>
                                     <a href="{% url 'day' curMonth i curYear %}" style="display: block; height: 100%;text-align: right; margin-right: 15px; margin-top: 10px;">{{ i }}</a>
                                     {% if i in mealdates %}
-                                        <div style="color: white; margin-top: -100px; background: blue;">Meal</div>
+                                        <div style="color: white; margin-top: -100px; background: #1976d2;">Meal</div>
                                     {% endif %}
                                 </li>
                             {% endif %}

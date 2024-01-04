@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Food List</h1>
+<h1 class="grey-text text-lighten-2">Food List</h1>
 
 {% for f in food_list %}
     <a href="{% url 'foods_update' f.id %}">
-        <div class="card">
+        <div class="card grey darken-3">
             <div class="card-content">
-                <span class="card-title">{{ f.name }}</span>
+                <span class="card-title grey-text text-lighten-2">{{ f.name }}</span>
             </div>
         </div>
     </a>

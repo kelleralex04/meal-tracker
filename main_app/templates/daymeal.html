@@ -4,14 +4,23 @@
 <h1>Meals for {{ curMonth }} {{ curDay }}, {{ curYear }}</h1>
 
 <div class="food-card">
-    {% for m in meal%}
-        <p>Meal: {{ m.get_mealType_display }}</p>
-        <p>Food: {{ m.food }}</p>
-        <p>Quantity: {{ m.amount }}</p>
-        {% if m.favorited %}
-         <p>Favorite: *</p>
-        {% endif %}
-    {% endfor %}
+    <table class="foodTabel">
+        <thead>Breakfast:</thead>
+        <tbody>
+            {% for m in meal%}
+                {% if m.mealType == "B" %}
+                <tr>
+                    <td>Meal: {{ m.get_mealType_display }}</td>
+                    <td>Food: {{ m.food }}</td>
+                    <td>Quantity: {{ m.amount }}</td>
+                    {% if m.favorited %}
+                    <td>Favorite: *</td>
+                    {% endif %}
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 
 {% endblock %}

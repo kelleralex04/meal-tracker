@@ -3,8 +3,8 @@
 
 <h1>Meals for {{ curMonth }} {{ curDay }}, {{ curYear }}</h1>
 
-<div class="food-card">
-    <table class="foodTabel">
+<!-- <div class="food-card">
+    <table class="breakfastTable">
         <thead>Breakfast:</thead>
         <tbody>
             {% for m in meal%}
@@ -20,7 +20,148 @@
                 {% endif %}
             {% endfor %}
         </tbody>
+        <thead>Lunch:</thead>
+        <tbody>
+            {% for m in meal%}
+                {% if m.mealType == "L" %}
+                <tr>
+                    <td>Meal: {{ m.get_mealType_display }}</td>
+                    <td>Food: {{ m.food }}</td>
+                    <td>Quantity: {{ m.amount }}</td>
+                    {% if m.favorited %}
+                    <td>Favorite: *</td>
+                    {% endif %}
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
     </table>
-</div>
+
+    <table class="lunchTable">
+        <thead>Lunch:</thead>
+        <tbody>
+            {% for m in meal%}
+                {% if m.mealType == "L" %}
+                <tr>
+                    <td>Meal: {{ m.get_mealType_display }}</td>
+                    <td>Food: {{ m.food }}</td>
+                    <td>Quantity: {{ m.amount }}</td>
+                    {% if m.favorited %}
+                    <td>Favorite: *</td>
+                    {% endif %}
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <table class="dinnerTable">
+        <thead>Dinner:</thead>
+        <tbody>
+            {% for m in meal%}
+                {% if m.mealType == "D" %}
+                <tr>
+                    <td>Meal: {{ m.get_mealType_display }}</td>
+                    <td>Food: {{ m.food }}</td>
+                    <td>Quantity: {{ m.amount }}</td>
+                    {% if m.favorited %}
+                    <td>Favorite: *</td>
+                    {% endif %}
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <table class="additionalTable">
+        <thead>Additional Meal:</thead>
+        <tbody>
+            {% for m in meal%}
+                {% if m.mealType == "A" %}
+                <tr>
+                    <td>Meal: {{ m.get_mealType_display }}</td>
+                    <td>Food: {{ m.food }}</td>
+                    <td>Quantity: {{ m.amount }}</td>
+                    {% if m.favorited %}
+                    <td>Favorite: *</td>
+                    {% endif %}
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div> -->
+
+
+<table summary="Column one has the location and size of accommodation, other columns show the type and number of properties available">
+    <caption>
+        Available Caption
+    </caption>
+    <thead>
+        <tr>
+            <td></td>
+            <th id="stud" scope="col">
+                Quantity
+            </th>
+            <th id="apt" scope="col">
+                Favorite
+            </th>
+            <!-- <th id="chal" scope="col">
+                Left Blank
+            </th>
+            <th id="villa" scope="col">
+                Left Blank
+            </th> -->
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th id="par" class="span" colspan="5" scope="colgroup">
+                Breakfast
+            </th>
+        </tr>
+        {% for m in meal %}
+            {% if m.mealType == "B" %}
+                <tr>
+                    <th headers="par" id="pbed1">
+                        {{m.food}}
+                    </th>
+                    <td headers="par pbed1 stud">
+                        {{m.amount}}
+                    </td>
+                    {% if m.favorited %}
+                        <td headers="par pbed1 apt">
+                            *
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endif %}
+        {% endfor %}
+        <tr>
+            <th id="rome" class="span" colspan="5" scope="colgroup">
+                Lunch
+            </th>
+        </tr>
+        {% for m in meal %}
+            {% if m.mealType == "L" %}
+                <tr>
+                    <th id="rbed1" headers="rome">
+                        {{m.food}}
+                    </th>
+                    <td headers="rome rbed1 stud">
+                        {{m.amount}}
+                    </td>
+                    {% if m.favorited %}
+                        <td headers="rome rbed1 apt">
+                            *
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </tbody>
+    </table>
+
+
 
 {% endblock %}

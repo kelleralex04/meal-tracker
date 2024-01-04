@@ -36,10 +36,12 @@ class Meal(models.Model):
     )
 
 class Profile(models.Model):
+    firstname = models.CharField(verbose_name = 'First Name')
+    lastname = models.CharField(verbose_name = 'Last Name')
     age = models.IntegerField()
-    height = models.IntegerField()
-    initWeight = models.IntegerField()
-    goalWeight = models.IntegerField()
+    height = models.IntegerField(verbose_name = 'Height(cm)')
+    initWeight = models.IntegerField(verbose_name='Staring Weight')
+    goalWeight = models.IntegerField(verbose_name='Goal Weight')
 
 class BodyData(models.Model):
     weight = models.IntegerField()

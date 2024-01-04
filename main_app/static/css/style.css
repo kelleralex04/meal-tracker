@@ -22,7 +22,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: white;
+    background: lightgrey;
     min-height: 90vh;
     width:100vw;
 }
@@ -34,7 +34,7 @@ a {
 }
 
 .calendar {
-    padding: 20px;
+    padding: 0 10px 20px;
     height: 90%;
 }
 
@@ -57,23 +57,18 @@ a {
 
 .calendar .days li {
     cursor: pointer;
-    background: lightgrey;
+    background: white;
 }
 
 .wrapper {
-    background: white;
+    background: lightgrey;
 }
 
 .wrapper header {
     display: flex;
     align-items: center;
-    padding: 25px 30px 10px;
+    padding: 0 30px;
     justify-content: space-between;
-}
-
-header .currentDate {
-    font-size: 1.45rem;
-    font-weight: 500;
 }
 
 .inactive {
@@ -89,22 +84,22 @@ header .currentDate {
     font-family: Futura, sans-serif;
     margin: 0;
     padding: 0;
-  }
-  
-  #dayHeader {
+}
+
+#dayHeader {
     background-color: #1a1933;
     color: #aaa8d6;
     text-align: center;
     padding: 1em;
-  }
-  
-  #dayMain {
+}
+
+#dayMain {
     display: flex;
     justify-content: space-between;
     padding: 20px;
-  }
-  
-  .column {
+}
+
+.column {
     flex: 1;
     margin-right: 20px;
     padding: 20px;
@@ -114,4 +109,4 @@ header .currentDate {
     border: 1px solid #36354b;
     border-radius: 8px;
     height: 100vh;
-  }
+}

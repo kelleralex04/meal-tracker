@@ -135,6 +135,7 @@ class FoodUpdate(LoginRequiredMixin, UpdateView):
 class FoodDelete(LoginRequiredMixin, DeleteView):
     model = Food
     success_url = '/foods'
+
 class ProfileCreate(LoginRequiredMixin, CreateView):
     model = Profile
     fields = ['firstname', 'lastname', 'age', 'height', 'initWeight', 'goalWeight']
@@ -148,7 +149,7 @@ class ProfileDetail(LoginRequiredMixin, DetailView):
 
 class CalendarMealCreate(LoginRequiredMixin, CreateView):
     model = Meal
-    fields = ['food', 'servings', 'favorited', 'mealType']
+    fields = ['foodname', 'servings', 'favorited', 'mealType']
     success_url = '/calendar'
     
 class ProfileUpdate(LoginRequiredMixin, UpdateView):

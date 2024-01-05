@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import  LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Meal, Food, Profile
+from .models import Meal, Food, Profile, BodyData
 from django.views.generic import ListView, DetailView
 from django import forms
 
@@ -82,14 +82,14 @@ def calendarMeal(request, curMonth, curDay, curYear):
     meal = Meal.objects.filter(date=datetime(curYear,curMonth,curDay))
     month = months[curMonth - 1]
     return render(request, 'daymeal.html', {
-        'curMonth': month, 'curDay': curDay, 'curYear': curYear, 'meal': meal
+        'curMonth': curMonth, 'month': month, 'curDay': curDay, 'curYear': curYear, 'meal': meal
     })
 
 @login_required
 def calendarBody(request, curMonth, curDay, curYear):
     month = months[curMonth - 1]
     return render(request, 'daybody.html', {
-        'curMonth': month, 'curDay': curDay, 'curYear': curYear
+        'curMonth': curMonth, 'month': month, 'curDay': curDay, 'curYear': curYear
     })
 
 def signup(request):
@@ -155,9 +155,13 @@ class CalendarMealCreate(LoginRequiredMixin, CreateView):
     model = Meal
     fields = ['foodname', 'servings', 'favorited', 'mealType']
     success_url = '/calendar'
+
+class CalendarBodyCreate(LoginRequiredMixin, CreateView):
+    model = BodyData
+    fields = ['weight']
+    success_url = "/"
     
 class ProfileUpdate(LoginRequiredMixin, UpdateView):
     model = Profile
     fields = '__all__'
-
 

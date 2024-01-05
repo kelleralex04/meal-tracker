@@ -8,6 +8,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Meal, Food, Profile
 from django.views.generic import ListView, DetailView
+from django import forms
+
 
 
 date = datetime.now()
@@ -109,9 +111,18 @@ def signup(request):
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
 
+class FoodForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['name'].widget.attrs.update({'style': 'color: white'})
+
+    class Meta:
+        model = Food
+        fields = '__all__'
+
 class FoodCreate(LoginRequiredMixin, CreateView):
+    form_class = FoodForm
     model = Food
-    fields = '__all__'
     success_url = '/foods'
 
 class FoodList(LoginRequiredMixin, ListView):
@@ -143,3 +154,5 @@ class CalendarMealCreate(LoginRequiredMixin, CreateView):
 class ProfileUpdate(LoginRequiredMixin, UpdateView):
     model = Profile
     fields = '__all__'
+
+

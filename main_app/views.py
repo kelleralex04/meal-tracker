@@ -131,3 +131,7 @@ class ProfileCreate(LoginRequiredMixin, CreateView):
 
 class ProfileDetail(LoginRequiredMixin, DetailView):
     model = Profile
+
+class ProfileUpdate(LoginRequiredMixin, UpdateView):
+    model = Profile
+    fields = '__all__'

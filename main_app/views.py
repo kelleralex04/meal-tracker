@@ -134,3 +134,8 @@ class ProfileCreate(LoginRequiredMixin, CreateView):
 
 class ProfileDetail(LoginRequiredMixin, DetailView):
     model = Profile
+
+class CalendarMealCreate(LoginRequiredMixin, CreateView):
+    model = Meal
+    fields = ['food', 'servings', 'favorited', 'mealType']
+    success_url = '/calendar'

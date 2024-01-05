@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 from datetime import datetime
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 
@@ -25,7 +26,7 @@ class Food(models.Model):
         return reverse('foods_update', kwargs={'food_id': self.id})
 
 class Meal(models.Model):
-    food = models.ManyToManyField(Food)
+    foodname = ArrayField(models.CharField())
     servings = models.IntegerField()
     date = models.DateField(default=datetime.now)
     favorited = models.BooleanField(default=False)

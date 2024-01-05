@@ -5,8 +5,8 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import  LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Meal, Food, Profile
-from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView, DetailView
 from django import forms
 
@@ -132,6 +132,9 @@ class FoodUpdate(LoginRequiredMixin, UpdateView):
     model = Food
     fields = '__all__'
 
+class FoodDelete(LoginRequiredMixin, DeleteView):
+    model = Food
+    success_url = '/foods'
 class ProfileCreate(LoginRequiredMixin, CreateView):
     model = Profile
     fields = ['firstname', 'lastname', 'age', 'height', 'initWeight', 'goalWeight']
@@ -143,6 +146,11 @@ class ProfileCreate(LoginRequiredMixin, CreateView):
 class ProfileDetail(LoginRequiredMixin, DetailView):
     model = Profile
 
+class CalendarMealCreate(LoginRequiredMixin, CreateView):
+    model = Meal
+    fields = ['food', 'servings', 'favorited', 'mealType']
+    success_url = '/calendar'
+    
 class ProfileUpdate(LoginRequiredMixin, UpdateView):
     model = Profile
     fields = '__all__'

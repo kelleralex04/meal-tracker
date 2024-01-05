@@ -139,3 +139,7 @@ class CalendarMealCreate(LoginRequiredMixin, CreateView):
     model = Meal
     fields = ['food', 'servings', 'favorited', 'mealType']
     success_url = '/calendar'
+    
+class ProfileUpdate(LoginRequiredMixin, UpdateView):
+    model = Profile
+    fields = '__all__'

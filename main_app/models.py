@@ -42,6 +42,11 @@ class Profile(models.Model):
     height = models.IntegerField(verbose_name = 'Height(cm)')
     initWeight = models.IntegerField(verbose_name='Staring Weight')
     goalWeight = models.IntegerField(verbose_name='Goal Weight')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def get_absolute_url(self):
+        return reverse('profile_detail', kwargs={'pk': self.id})
+
 
 class BodyData(models.Model):
     weight = models.IntegerField()

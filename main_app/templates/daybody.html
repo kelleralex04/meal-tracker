@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>{{ curMonth }} {{ curDay }}, {{ curYear }}</h1>
+<h1>{{ month }} {{ curDay }}, {{ curYear }}</h1>
 <h2>Day Body</h2>
-
+<a href="{% url 'daybody_create' curMonth curDay curYear %}">Create Body Data</a>
 {% endblock %}

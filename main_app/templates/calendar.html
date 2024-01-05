@@ -16,6 +16,9 @@
                 <div class="nav-wrapper black">
                     <ul>
                         <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Meal Tracker</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'profile_detail' user.id %}" class="brand-logo center">EXXXAMPLE</a></li>
+                        {% endif %}
                     </ul>
                     <ul class="right">
                         {% if user.is_authenticated %}

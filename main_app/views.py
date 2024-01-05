@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import  LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from .models import Meal, Food, Profile
 from django.views.generic.edit import CreateView, UpdateView
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 
 date = datetime.now()
@@ -123,5 +123,11 @@ class FoodUpdate(LoginRequiredMixin, UpdateView):
 
 class ProfileCreate(LoginRequiredMixin, CreateView):
     model = Profile
-    fields = '__all__'
+    fields = ['firstname', 'lastname', 'age', 'height', 'initWeight', 'goalWeight']
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
     success_url = '/calendar'
+
+class ProfileDetail(LoginRequiredMixin, DetailView):
+    model = Profile

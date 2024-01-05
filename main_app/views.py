@@ -115,6 +115,10 @@ class FoodForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['name'].widget.attrs.update({'style': 'color: white'})
+        self.fields['calories'].widget.attrs.update({'style': 'color: white'})
+        self.fields['carbs'].widget.attrs.update({'style': 'color: white'})
+        self.fields['protein'].widget.attrs.update({'style': 'color: white'})
+        self.fields['amount'].widget.attrs.update({'style': 'color: white'})
 
     class Meta:
         model = Food

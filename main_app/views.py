@@ -9,6 +9,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Meal, Food, Profile, BodyData
 from django.views.generic import ListView, DetailView
 from django import forms
+from .forms import MealForm
 
 
 
@@ -139,7 +140,7 @@ class FoodUpdate(LoginRequiredMixin, UpdateView):
 class FoodDelete(LoginRequiredMixin, DeleteView):
     model = Food
     success_url = '/foods'
-    
+
 class ProfileCreate(LoginRequiredMixin, CreateView):
     model = Profile
     fields = ['firstname', 'lastname', 'age', 'height', 'initWeight', 'goalWeight']
@@ -151,10 +152,16 @@ class ProfileCreate(LoginRequiredMixin, CreateView):
 class ProfileDetail(LoginRequiredMixin, DetailView):
     model = Profile
 
-class CalendarMealCreate(LoginRequiredMixin, CreateView):
-    model = Meal
-    fields = ['food', 'servings', 'favorited', 'mealType']
-    success_url = '/calendar'
+# class CalendarMealCreate(LoginRequiredMixin, CreateView):
+#     model = Meal
+#     form_class = MealForm
+#     success_url = '/calendar'
+    
+def mealCreate(request, curMonth, curDay, curYear):
+    meal_form = MealForm()
+    return render(request, 'mealcreate.html', {
+        'meal_form': meal_form
+    })
 
 class CalendarBodyCreate(LoginRequiredMixin, CreateView):
     model = BodyData

@@ -38,10 +38,10 @@
         </tr>
         {% for m in meal %}
             {% if m.mealType == "B" %}
-                {% for food in m.foodname %}
+                {% for food in m.food.all %}
                 <tr>
                     <th headers="par" id="pbed1">
-                        {{food}}
+                        {{food.name}}
                     </th>
                     <td headers="par pbed1 stud">
                         {{food.calories}}
@@ -56,13 +56,8 @@
                         {{food.amount}}
                     </td>
                     <td headers="par pbed1 stud">
-                        {{m.servings}}
+                        {{food.servings}}
                     </td>
-                    {% if m.favorited %}
-                        <td headers="par pbed1 apt">
-                            *
-                        </td>
-                    {% endif %}
                 </tr>
                 {% endfor %}
             {% endif %}

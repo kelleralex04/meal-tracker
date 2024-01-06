@@ -8,7 +8,6 @@ def profile_context(request):
         user = User.objects.get(id=request.user.id)
         profile = Profile.objects.filter(user=user)
         if len(profile):
-            print(profile)
             return {'profile': profile[0]}
         else: return {'test': test}
     else:

@@ -10,9 +10,15 @@
 
 <form action="" method="POST">
     {% csrf_token %}
-    {{ meal_form.as_p}}
+    {{ meal_form.as_p }}
     <input type="submit" value="Submit!" class="btn blue darken-1">
 </form>
 
+<script>
+
+    const selectEl = document.getElementById('id_mealType');
+    M.FormSelect.init(selectEl);
+
+</script>
 
 {% endblock %}

@@ -152,16 +152,16 @@ class ProfileCreate(LoginRequiredMixin, CreateView):
 class ProfileDetail(LoginRequiredMixin, DetailView):
     model = Profile
 
-class CalendarMealCreate(LoginRequiredMixin, CreateView):
-    model = Meal
-    form_class = MealForm
-    success_url = '/calendar'
+# class CalendarMealCreate(LoginRequiredMixin, CreateView):
+#     model = Meal
+#     form_class = MealForm
+#     success_url = '/calendar'
     
-# def mealCreate(request, curMonth, curDay, curYear):
-#     meal_form = MealForm
-#     return render(request, 'mealcreate.html', {
-#         'meal_form': meal_form
-#     })
+def mealCreate(request, curMonth, curDay, curYear):
+    meal_form = MealForm()
+    return render(request, 'mealcreate.html', {
+        'meal_form': meal_form
+    })
 
 class CalendarBodyCreate(LoginRequiredMixin, CreateView):
     model = BodyData

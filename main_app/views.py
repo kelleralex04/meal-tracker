@@ -6,10 +6,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import  LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Meal, Food, Profile, BodyData
+from .models import Meal, Food, Profile, BodyData, MealFoodItem
 from django.views.generic import ListView, DetailView
 from django import forms
-from .forms import MealForm
+from .forms import MealForm, MealFoodItemForm
 
 
 
@@ -80,11 +80,30 @@ def calendarDetail(request, curMonth, i, curYear):
 
 @login_required
 def calendarMeal(request, curMonth, curDay, curYear):
-    meal = Meal.objects.filter(date=datetime(curYear,curMonth,curDay))
+    meals = Meal.objects.filter(date=datetime(curYear,curMonth,curDay))
+    foods = Food.objects.all()
     month = months[curMonth - 1]
+    meal_form = MealForm()
+    meal_food_item_form = MealFoodItemForm()
     return render(request, 'daymeal.html', {
-        'curMonth': curMonth, 'month': month, 'curDay': curDay, 'curYear': curYear, 'meal': meal
+        'curMonth': curMonth, 'month': month, 'curDay': curDay, 'curYear': curYear, 'meals': meals, 'meal_food_item_form': meal_food_item_form, 'foods': foods, 'meal_form': meal_form
     })
+
+def assoc_food(request, curMonth, curDay, curYear):
+    curDate = datetime(curYear, curMonth, curDay)
+    curMeal = Meal.objects.filter(date=curDate, mealType=request.POST['mealType'])
+    f = Food.objects.get(name=request.POST['foodChoice'])
+    mfi = MealFoodItem(name=f.name, calories=f.calories, carbs=f.carbs, protein=f.protein, amount=f.amount, servings=request.POST['servings'])
+    mfi.save()
+    fall = Food.objects.all()
+    print(fall)
+    if len(curMeal):
+        curMeal[0].food.add(mfi)
+    else:
+        m = Meal(date=curDate, mealType=request.POST['mealType'])
+        m.save()
+        m.food.add(mfi)
+    return redirect(f'/calendar/m{curMonth}d{curDay}y{curYear}/meal')
 
 @login_required
 def calendarBody(request, curMonth, curDay, curYear):
@@ -151,17 +170,6 @@ class ProfileCreate(LoginRequiredMixin, CreateView):
 
 class ProfileDetail(LoginRequiredMixin, DetailView):
     model = Profile
-
-# class CalendarMealCreate(LoginRequiredMixin, CreateView):
-#     model = Meal
-#     form_class = MealForm
-#     success_url = '/calendar'
-    
-def mealCreate(request, curMonth, curDay, curYear):
-    meal_form = MealForm()
-    return render(request, 'mealcreate.html', {
-        'meal_form': meal_form
-    })
 
 class CalendarBodyCreate(LoginRequiredMixin, CreateView):
     model = BodyData

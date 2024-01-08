@@ -2,7 +2,7 @@
 {% block content %}
 
 <h1 class ="grey-text text-lighten-2 center-align">{{ month }} {{ curDay }}, {{ curYear }}</h1>
-<h3 class ="grey-text text-lighten-2 center-align">Today's Weight</h2>
+<h3 class ="grey-text text-lighten-1 center-align">Today's Weight</h2>
 
 <a class ="btn blue darken-1" href="{% url 'daybody_create' curMonth curDay curYear %}">Enter Weight</a>
 {% endblock %}

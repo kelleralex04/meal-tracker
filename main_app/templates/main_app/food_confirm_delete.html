@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1 class="grey-text text-lighten-2">Delete Food</h1>
+  <h1 class="grey-text text-lighten-2 center-align">Delete Food</h1>
 
-  <h4 class="grey-text text-lighten-2">Are you sure you want to delete <span class="blue-text text-darken-1">{{ object.name }}</span>?</h4>
+  <h4 class="grey-text text-lighten-1 center-align">Are you sure you want to delete <span class="blue-text text-darken-1">{{ object.name }}</span>?</h4>
 
   <form action="" method="POST">
     {% csrf_token %}

@@ -9,7 +9,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Meal, Food, Profile, BodyData, MealFoodItem
 from django.views.generic import ListView, DetailView
 from django import forms
-from .forms import MealForm, MealFoodItemForm
+from .forms import MealForm, MealFoodItemForm, BodyDataForm
 
 
 
@@ -107,10 +107,23 @@ def assoc_food(request, curMonth, curDay, curYear):
 
 @login_required
 def calendarBody(request, curMonth, curDay, curYear):
+    curDate = datetime(curYear, curMonth, curDay)
     month = months[curMonth - 1]
+    weight = BodyData.objects.filter(date=curDate)
+    bodyDataForm = BodyDataForm()
+    if len(weight):
+        w = weight[0].weight
+    else:
+        w = None
     return render(request, 'daybody.html', {
-        'curMonth': curMonth, 'month': month, 'curDay': curDay, 'curYear': curYear
+        'curMonth': curMonth, 'month': month, 'curDay': curDay, 'curYear': curYear, 'weight': w, 'body_data_create': bodyDataForm,
     })
+
+def calendarBodyCreate(request, curMonth, curDay, curYear):
+    curDate = datetime(curYear, curMonth, curDay)
+    w = BodyData(date=curDate, weight=request.POST['weight'])
+    w.save()
+    return redirect(f'/calendar/m{curMonth}d{curDay}y{curYear}/body')
 
 def signup(request):
     error_message = ''
@@ -171,11 +184,6 @@ class ProfileCreate(LoginRequiredMixin, CreateView):
 class ProfileDetail(LoginRequiredMixin, DetailView):
     model = Profile
 
-class CalendarBodyCreate(LoginRequiredMixin, CreateView):
-    model = BodyData
-    fields = ['weight']
-    success_url = "/"
-    
 class ProfileUpdate(LoginRequiredMixin, UpdateView):
     model = Profile
     fields = '__all__'

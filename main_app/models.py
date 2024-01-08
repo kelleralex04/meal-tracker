@@ -2,7 +2,6 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 from datetime import datetime
-from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 
@@ -13,20 +12,24 @@ MEALCHOICE = (
     ('A', 'Additional Meal'),
 )
 
-class Food(models.Model):
+class Ingredient(models.Model):
     name = models.CharField()
     calories = models.IntegerField()
     carbs = models.IntegerField()
     protein = models.IntegerField()
     amount = models.IntegerField(verbose_name='Weight(g)')
 
+    class Meta:
+        abstract = True
+
+class Food(Ingredient):
     def __str__(self):
         return self.name
     
     def get_absolute_url(self):
         return reverse('foods_update', kwargs={'food_id': self.id})
 
-class MealFoodItem(Food):
+class MealFoodItem(Ingredient):
     servings = models.IntegerField()
 
 class Meal(models.Model):

@@ -2,7 +2,7 @@
 {% block content %}
 
 {% if object %}
-  <h1>Edit <span class="blue-text text-darken-1">{{ object.name }}</span></h1>
+  <h1 class="grey-text text-lighten-2">Edit <span class="blue-text text-darken-1">{{ object.name }}</span></h1>
 {% else %}
   <h1 class="grey-text text-lighten-2">Add Food</h1>
 {% endif %}
@@ -15,8 +15,9 @@
   </table>
   <input type="submit" value="Submit!" class="btn blue darken-1">
 </form>
+<br>
 {% if object %}
-  <a href="{% url 'foods_delete' object.id %}">Delete</a>
+  <a href="{% url 'foods_delete' object.id %}" class="btn blue darken-1">Delete</a>
 {% endif %}
 
 {% endblock %}

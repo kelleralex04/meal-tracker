@@ -3,7 +3,7 @@
 
 <h1>Meals for {{ month }} {{ curDay }}, {{ curYear }}</h1>
 
-<table summary="Column one has the location and size of accommodation, other columns show the type and number of properties available">
+<table>
     <caption>
         Available Caption
     </caption>
@@ -36,9 +36,9 @@
                 Breakfast
             </th>
         </tr>
-        {% for m in meal %}
-            {% if m.mealType == "B" %}
-                {% for food in m.food.all %}
+        {% for meal in meals %}
+            {% if meal.mealType == "B" %}
+                {% for food in meal.food.all %}
                 <tr>
                     <th headers="par" id="pbed1">
                         {{food.name}}
@@ -67,9 +67,9 @@
                 Lunch
             </th>
         </tr>
-        {% for m in meal %}
-            {% if m.mealType == "L" %}
-                {% for food in m.food.all %}
+        {% for meal in meals %}
+            {% if meal.mealType == "L" %}
+                {% for food in meal.food.all %}
                 <tr>
                     <th headers="par" id="pbed1">
                         {{food.name}}
@@ -87,13 +87,8 @@
                         {{food.amount}}
                     </td>
                     <td headers="par pbed1 stud">
-                        {{m.servings}}
+                        {{food.servings}}
                     </td>
-                    {% if m.favorited %}
-                        <td headers="par pbed1 apt">
-                            *
-                        </td>
-                    {% endif %}
                 </tr>
                 {% endfor %}
             {% endif %}
@@ -103,9 +98,9 @@
                 Dinner
             </th>
         </tr>
-        {% for m in meal %}
-            {% if m.mealType == "D" %}
-                {% for food in m.foodname.all %}
+        {% for meal in meals %}
+            {% if meal.mealType == "D" %}
+                {% for food in meal.food.all %}
                 <tr>
                     <th headers="par" id="pbed1">
                         {{food}}
@@ -123,26 +118,20 @@
                         {{food.amount}}
                     </td>
                     <td headers="par pbed1 stud">
-                        {{m.servings}}
+                        {{food.servings}}
                     </td>
-                    {% if m.favorited %}
-                        <td headers="par pbed1 apt">
-                            *
-                        </td>
-                    {% endif %}
                 </tr>
                 {% endfor %}
             {% endif %}
         {% endfor %}
-
         <tr>
             <th id="rome" class="span" colspan="5" scope="colgroup">
                 Additional Meal
             </th>
         </tr>
-        {% for m in meal %}
-            {% if m.mealType == "A" %}
-                {% for food in m.food.all %}
+        {% for meal in meals %}
+            {% if meal.mealType == "A" %}
+                {% for food in meal.food.all %}
                 <tr>
                     <th headers="par" id="pbed1">
                         {{food.name}}
@@ -160,20 +149,31 @@
                         {{food.amount}}
                     </td>
                     <td headers="par pbed1 stud">
-                        {{m.servings}}
+                        {{food.servings}}
                     </td>
-                    {% if m.favorited %}
-                        <td headers="par pbed1 apt">
-                            *
-                        </td>
-                    {% endif %}
                 </tr>
                 {% endfor %}
             {% endif %}
         {% endfor %}
-
     </tbody>
-    </table>
-    
+</table>
+
+<h5 style="color: white">Available Foods</h5>
+<form action="{% url 'assoc_food' curMonth curDay curYear %}" method="POST">
+    {% csrf_token %}
+    {{ meal_form.as_p }}
+    <select name="foodChoice" style="display: block; width: 20vw;">
+        {% for food in foods.all %}
+            <option value="{{ food.name }}">{{ food.name }}</option>
+        {% endfor %}
+    </select>
+    {{ meal_food_item_form.as_p }}
+    <button type="submit" class="btn">Add</button>
+</form>
+
+<script>
+    const selectEl = document.getElementById('id_mealType');
+    M.FormSelect.init(selectEl);
+</script>
 
 {% endblock %}

@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Meal, MealFoodItem
+from .models import Meal, MealFoodItem, BodyData
 
 class MealForm(ModelForm):
     class Meta:
@@ -10,3 +10,8 @@ class MealFoodItemForm(ModelForm):
     class Meta:
         model = MealFoodItem
         fields = ['servings']
+
+class BodyDataForm(ModelForm):
+    class Meta:
+        model = BodyData
+        fields = ['weight']

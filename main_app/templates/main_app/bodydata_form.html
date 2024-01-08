@@ -7,7 +7,7 @@
     <h1>Create Body Data</h1>
 {% endif %}
 
-<form action="" method="POST">
+<form action="{% url 'daybody_create' curMonth curDay curYear %}" method="POST">
     {% csrf_token %}
     <table>
         {{ form.as_table }}

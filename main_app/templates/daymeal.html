@@ -1,13 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Meals for {{ month }} {{ curDay }}, {{ curYear }}</h1>
+<h1 class="grey-text text-lighten-2 center-align">Meals for {{ month }} {{ curDay }}, {{ curYear }}</h1>
 
-<table>
-    <caption>
-        Available Caption
-    </caption>
-    <thead>
+<table class="container grey darken-2">
+    <caption class="grey-text text-lighten-2"></caption>
+    <thead class="grey-text text-lighten-2">
         <tr>
             <td></td>
             <th id="stud" scope="col">
@@ -30,9 +28,9 @@
             </th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="grey-text text-lighten-1">
         <tr>
-            <th id="par" class="span" colspan="5" scope="colgroup">
+            <th class="grey-text text-darken-4" id="par" class="span" colspan="5" scope="colgroup">
                 Breakfast
             </th>
         </tr>
@@ -63,7 +61,7 @@
             {% endif %}
         {% endfor %}
         <tr> 
-            <th id="rome" class="span" colspan="5" scope="colgroup">
+            <th class="grey-text text-darken-4" id="rome" class="span" colspan="5" scope="colgroup">
                 Lunch
             </th>
         </tr>
@@ -94,7 +92,7 @@
             {% endif %}
         {% endfor %}
         <tr>
-            <th id="rome" class="span" colspan="5" scope="colgroup">
+            <th class="grey-text text-darken-4" id="rome" class="span" colspan="5" scope="colgroup">
                 Dinner
             </th>
         </tr>
@@ -125,7 +123,7 @@
             {% endif %}
         {% endfor %}
         <tr>
-            <th id="rome" class="span" colspan="5" scope="colgroup">
+            <th class="grey-text text-darken-4" id="rome" class="span" colspan="5" scope="colgroup">
                 Additional Meal
             </th>
         </tr>
@@ -157,18 +155,18 @@
         {% endfor %}
     </tbody>
 </table>
-
-<h5 style="color: white">Available Foods</h5>
+<div class="divider grey darken-1"></div>
+<h5 class="grey-text text-lighten-2">Available Foods</h5>
 <form action="{% url 'assoc_food' curMonth curDay curYear %}" method="POST">
     {% csrf_token %}
     {{ meal_form.as_p }}
-    <select name="foodChoice" style="display: block; width: 20vw;">
+    <select name="foodChoice" style="display: block; width: 20vw;" class="grey darken-3">
         {% for food in foods.all %}
-            <option value="{{ food.name }}">{{ food.name }}</option>
+            <option class="grey-text text-lighten-2" value="{{ food.name }}">{{ food.name }}</option>
         {% endfor %}
     </select>
     {{ meal_food_item_form.as_p }}
-    <button type="submit" class="btn">Add</button>
+    <button type="submit" class="btn blue darken-1">Add</button>
 </form>
 
 <script>

@@ -85,6 +85,15 @@ a {
     color: #fb3640;
 }
 
+.column {
+    padding: 20px;
+    text-align: center;
+    background-color: #424242;
+    /* border: 2px solid #616161; */
+    border-radius: 8px;
+
+  }
+
 #dayBody {
     background-color: #212121;
     font-family: Futura, sans-serif;
@@ -109,14 +118,4 @@ a {
     padding: 20px;
   }
   
-.column {
-    flex: 1;
-    margin-right: 20px;
-    padding: 20px;
-    text-align: center;
-    background-color: #424242;
-    /* border: 2px solid #616161; */
-    border-radius: 8px;
-    height: 100vh;
-  }
 

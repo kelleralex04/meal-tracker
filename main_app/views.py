@@ -8,6 +8,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Meal, Food, Profile, BodyData, MealFoodItem
 from django.views.generic import ListView, DetailView
 from .forms import MealForm, MealFoodItemForm, BodyDataForm, FoodForm, ProfileForm, NewUserCreationForm
+from django.contrib.auth.models import User
 
 
 
@@ -90,7 +91,8 @@ def calendarDetail(request, curMonth, i, curYear):
 
 @login_required
 def calendarMeal(request, curMonth, curDay, curYear):
-    meals = Meal.objects.filter(date=datetime(curYear,curMonth,curDay))
+    user = User.objects.get(id=request.user.id)
+    meals = Meal.objects.filter(date=datetime(curYear,curMonth,curDay), user=user)
     foods = Food.objects.all()
     month = months[curMonth - 1]
     meal_form = MealForm()
@@ -102,7 +104,8 @@ def calendarMeal(request, curMonth, curDay, curYear):
 @login_required
 def assoc_food(request, curMonth, curDay, curYear):
     curDate = datetime(curYear, curMonth, curDay)
-    curMeal = Meal.objects.filter(date=curDate, mealType=request.POST['mealType'])
+    user = User.objects.get(id=request.user.id)
+    curMeal = Meal.objects.filter(date=curDate, mealType=request.POST['mealType'], user=user)
     f = Food.objects.get(name=request.POST['foodChoice'])
     servings = int(request.POST['servings'])
     mfi = MealFoodItem(name=f.name, calories=(f.calories * servings), carbs=(f.carbs * servings), protein=(f.protein * servings), amount=(f.amount * servings), servings=servings)
@@ -122,7 +125,7 @@ def assoc_food(request, curMonth, curDay, curYear):
         else:
             curMeal[0].food.add(mfi)
     else:
-        m = Meal(date=curDate, mealType=request.POST['mealType'])
+        m = Meal(date=curDate, mealType=request.POST['mealType'], user=user)
         m.save()
         m.food.add(mfi)
     return redirect(f'/calendar/m{curMonth}d{curDay}y{curYear}/meal')

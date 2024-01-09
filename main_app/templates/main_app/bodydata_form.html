@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if object %}
+    <h1 class="grey-text text-lighten-2 center-align">Edit Today's Weight</h1>
+{% else %}
+    <h1 class="grey-text text-lighten-2 center-align">Enter Your Weight Today</h1>
+{% endif %}
+
+<form action="{% url 'daybody_create' curMonth curDay curYear %}" method="POST">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Submit!" class="btn waves-effect waves-light blue darken-1 z-depth-3">
+</form>
+
+{% endblock %}

@@ -43,6 +43,7 @@ class Meal(models.Model):
         choices=MEALCHOICE,
         default=MEALCHOICE[0][0]
     )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Profile(models.Model):
     firstname = models.CharField(verbose_name = 'First Name')

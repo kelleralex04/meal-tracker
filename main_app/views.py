@@ -172,6 +172,13 @@ def calendarBodyUpdate(request, curMonth, curDay, curYear):
     weight.save()
     return redirect(f'/calendar/m{curMonth}d{curDay}y{curYear}/body')
 
+@login_required
+def calendarBodyDelete(request, curMonth, curDay, curYear):
+    curDate = datetime(curYear, curMonth, curDay)
+    user = User.objects.get(id=request.user.id)
+    BodyData.objects.get(date=curDate, user=user).delete()
+    return redirect(f'/calendar/m{curMonth}d{curDay}y{curYear}/body')
+
 def signup(request):
     error_message = ''
     if request.method == 'POST':

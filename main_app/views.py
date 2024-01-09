@@ -8,6 +8,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Meal, Food, Profile, BodyData, MealFoodItem
 from django.views.generic import ListView, DetailView
 from .forms import MealForm, MealFoodItemForm, BodyDataForm, FoodForm, ProfileForm, NewUserCreationForm
+from django.contrib.auth.models import User
 
 
 
@@ -108,6 +109,7 @@ def assoc_food(request, curMonth, curDay, curYear):
     mfi = MealFoodItem(name=f.name, calories=(f.calories * servings), carbs=(f.carbs * servings), protein=(f.protein * servings), amount=(f.amount * servings), servings=servings)
     mfi.save()
     curFoods = []
+    user = User.objects.get(id=request.user.id)
     if len(curMeal) and len(curMeal[0].food.all()):
         for i in curMeal[0].food.all().values():
             curFoods.append(i['name'])
@@ -122,7 +124,7 @@ def assoc_food(request, curMonth, curDay, curYear):
         else:
             curMeal[0].food.add(mfi)
     else:
-        m = Meal(date=curDate, mealType=request.POST['mealType'])
+        m = Meal(date=curDate, mealType=request.POST['mealType'], user=user)
         m.save()
         m.food.add(mfi)
     return redirect(f'/calendar/m{curMonth}d{curDay}y{curYear}/meal')

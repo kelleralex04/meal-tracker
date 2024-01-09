@@ -4,12 +4,11 @@ import calendar
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import  LoginRequiredMixin
-from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Meal, Food, Profile, BodyData, MealFoodItem
 from django.views.generic import ListView, DetailView
-from django import forms
-from .forms import MealForm, MealFoodItemForm, BodyDataForm, FoodForm, ProfileForm
+from .forms import MealForm, MealFoodItemForm, BodyDataForm, FoodForm, ProfileForm, NewUserCreationForm
+from django.contrib.auth.models import User
 
 
 
@@ -61,15 +60,15 @@ def calendarIndex(request):
             lastInactiveDays.append(i + 1)
 
     bothdates = set()
+    user = User.objects.get(id=request.user.id)
 
     curMonthText = months[curMonth - 1]
-    meal = Meal.objects.filter(date__gte=datetime(curYear, curMonth, 1), date__lte=datetime(curYear, curMonth, lastDateofMonth[1]))
+    meal = Meal.objects.filter(date__gte=datetime(curYear, curMonth, 1), date__lte=datetime(curYear, curMonth, lastDateofMonth[1]), user=user)
     mealdates = set()
     for m in meal:
-        print(m.food.all())
         mealdates.add(m.date.day)
 
-    weight = BodyData.objects.filter(date__gte=datetime(curYear, curMonth, 1), date__lte=datetime(curYear, curMonth, lastDateofMonth[1]))
+    weight = BodyData.objects.filter(date__gte=datetime(curYear, curMonth, 1), date__lte=datetime(curYear, curMonth, lastDateofMonth[1]), user=user)
     weightdates = set()
     for w in weight:
         if w.date.day in mealdates:
@@ -93,7 +92,8 @@ def calendarDetail(request, curMonth, i, curYear):
 
 @login_required
 def calendarMeal(request, curMonth, curDay, curYear):
-    meals = Meal.objects.filter(date=datetime(curYear,curMonth,curDay))
+    user = User.objects.get(id=request.user.id)
+    meals = Meal.objects.filter(date=datetime(curYear,curMonth,curDay), user=user)
     foods = Food.objects.all()
     month = months[curMonth - 1]
     meal_form = MealForm()
@@ -105,25 +105,28 @@ def calendarMeal(request, curMonth, curDay, curYear):
 @login_required
 def assoc_food(request, curMonth, curDay, curYear):
     curDate = datetime(curYear, curMonth, curDay)
-    curMeal = Meal.objects.filter(date=curDate, mealType=request.POST['mealType'])
+    user = User.objects.get(id=request.user.id)
+    curMeal = Meal.objects.filter(date=curDate, mealType=request.POST['mealType'], user=user)
     f = Food.objects.get(name=request.POST['foodChoice'])
     servings = int(request.POST['servings'])
     mfi = MealFoodItem(name=f.name, calories=(f.calories * servings), carbs=(f.carbs * servings), protein=(f.protein * servings), amount=(f.amount * servings), servings=servings)
     mfi.save()
+    curFoods = []
     if len(curMeal) and len(curMeal[0].food.all()):
         for i in curMeal[0].food.all().values():
-            if f.name == i['name']:
-                repeat = curMeal[0].food.get(name=f.name)
-                repeat.calories += f.calories * servings
-                repeat.carbs += f.carbs * servings
-                repeat.protein += f.protein * servings
-                repeat.amount += f.amount * servings
-                repeat.servings += servings
-                repeat.save()
-            else:
-                curMeal[0].food.add(mfi)
+            curFoods.append(i['name'])
+        if f.name in curFoods:
+            repeat = curMeal[0].food.get(name=f.name)
+            repeat.calories += f.calories * servings
+            repeat.carbs += f.carbs * servings
+            repeat.protein += f.protein * servings
+            repeat.amount += f.amount * servings
+            repeat.servings += servings
+            repeat.save()
+        else:
+            curMeal[0].food.add(mfi)
     else:
-        m = Meal(date=curDate, mealType=request.POST['mealType'])
+        m = Meal(date=curDate, mealType=request.POST['mealType'], user=user)
         m.save()
         m.food.add(mfi)
     return redirect(f'/calendar/m{curMonth}d{curDay}y{curYear}/meal')
@@ -164,7 +167,7 @@ def signup(request):
     if request.method == 'POST':
         # This is how to create a 'user' form object
         # that includes the data from the browser
-        form = UserCreationForm(request.POST)
+        form = NewUserCreationForm(request.POST)
         if form.is_valid():
             # This will add the user to the database
             user = form.save()
@@ -174,7 +177,7 @@ def signup(request):
         else:
             error_message = 'You made an oopsie doopsie, go ahead and try again'
     # A bad POST or a GET request, so render signup.html with an empty form
-    form = UserCreationForm()
+    form = NewUserCreationForm()
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
 

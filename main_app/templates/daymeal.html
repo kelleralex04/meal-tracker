@@ -184,7 +184,7 @@
 <form action="{% url 'assoc_food' curMonth curDay curYear %}" method="POST">
     {% csrf_token %}
     {{ meal_form.as_p }}
-    <select name="foodChoice" style="display: block; width: 20vw;" class=" grey darken-3">
+    <select name="foodChoice" style="display: block; width: 20vw;" class="grey darken-3 white-text">
         {% for food in foods.all %}
             <option class="grey-text text-lighten-2" value="{{ food.name }}" style="color: red">{{ food.name }}</option>
         {% endfor %}

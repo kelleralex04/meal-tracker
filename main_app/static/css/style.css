@@ -170,6 +170,22 @@ input:not([type]):focus:not([readonly])+label,input[type=text]:not(.browser-defa
     color: #1e88e5
 }
 
-input[type=submit] {
-    color: white !important;
+.helptext {
+    color: #616161;
+}
+
+.signup li {
+    color: #616161;
+}
+
+#id_username {
+    color: white;
+}
+
+#id_password {
+    color: white;
+}
+
+.select-dropdown.dropdown-trigger {
+    color: white;
 }

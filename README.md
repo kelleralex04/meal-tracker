@@ -10,7 +10,7 @@ their starting weight, height, and goal weight.
 
 ![Calendar Home Page](https://imgur.com/r5S1wN4.png)
 ![Add Food Page](https://imgur.com/RDDwsFZ.png)
-![Food List Page](https://imgur.com/cVNZ3DV)
+![Food List Page](https://i.imgur.com/qtqcMXZ.png)
 
 ### Technologies Used
 - Python

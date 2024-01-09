@@ -110,18 +110,20 @@ def assoc_food(request, curMonth, curDay, curYear):
     servings = int(request.POST['servings'])
     mfi = MealFoodItem(name=f.name, calories=(f.calories * servings), carbs=(f.carbs * servings), protein=(f.protein * servings), amount=(f.amount * servings), servings=servings)
     mfi.save()
+    curFoods = []
     if len(curMeal) and len(curMeal[0].food.all()):
         for i in curMeal[0].food.all().values():
-            if f.name == i['name']:
-                repeat = curMeal[0].food.get(name=f.name)
-                repeat.calories += f.calories * servings
-                repeat.carbs += f.carbs * servings
-                repeat.protein += f.protein * servings
-                repeat.amount += f.amount * servings
-                repeat.servings += servings
-                repeat.save()
-            else:
-                curMeal[0].food.add(mfi)
+            curFoods.append(i['name'])
+        if f.name in curFoods:
+            repeat = curMeal[0].food.get(name=f.name)
+            repeat.calories += f.calories * servings
+            repeat.carbs += f.carbs * servings
+            repeat.protein += f.protein * servings
+            repeat.amount += f.amount * servings
+            repeat.servings += servings
+            repeat.save()
+        else:
+            curMeal[0].food.add(mfi)
     else:
         m = Meal(date=curDate, mealType=request.POST['mealType'])
         m.save()

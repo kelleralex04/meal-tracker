@@ -16,7 +16,7 @@
             <nav>
                 <div class="nav-wrapper black">
                     <ul>
-                        <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Meal Tracker</a></li>
+                        <li><a href="/" style="font-size:50px" class="left brand-logo">&nbsp;&nbsp;Meal Tracker</a></li>
                         {% if user.is_authenticated and profile %}
                             <li><a href="{% url 'profile_detail' profile.id %}" class="brand-logo center">{{ profile.firstname }} {{ profile.lastname }}</a></li>
                         {% elif user.is_authenticated %}
@@ -25,9 +25,9 @@
                     </ul>
                     <ul class="right">
                         {% if user.is_authenticated %}
-                            <li><a class="waves-effect waves-light btn-small black" href="{% url 'calendar' %}">Calendar</a></li>
-                            <li><a class="waves-effect waves-light btn-small black" href="{% url 'foods_list' %}">Food List</a></li>
-                            <li><a class="waves-effect waves-light btn-small black" href="{% url 'foods_create' %}">Add Food</a></li>
+                            <li><a class="waves-effect waves-light btn black" href="{% url 'calendar' %}">Calendar</a></li>
+                            <li><a class="waves-effect waves-light btn black" href="{% url 'foods_list' %}">Food List</a></li>
+                            <li><a class="waves-effect waves-light btn black" href="{% url 'foods_create' %}">Add Food</a></li>
                             <li>
                                 <form action="{% url 'logout' %}" method="POST">
                                     {% csrf_token %}
@@ -35,8 +35,8 @@
                                 </form>
                             </li>
                         {% else %}
-                            <li><a class="waves-effect waves-light btn-small black" href="{% url 'signup' %}">Sign Up</a></li>
-                            <li><a class="waves-effect waves-light btn-small black" href="{% url 'login' %}">Log In</a></li>
+                            <li><a class="waves-effect waves-light btn black" href="{% url 'signup' %}">Sign Up</a></li>
+                            <li><a class="waves-effect waves-light btn black" href="{% url 'login' %}">Log In</a></li>
                         {% endif %}
                     </ul>
                 </div>

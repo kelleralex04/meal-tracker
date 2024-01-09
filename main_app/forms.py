@@ -1,5 +1,6 @@
 from django.forms import ModelForm
 from .models import Meal, MealFoodItem, BodyData, Food, Profile
+from django.contrib.auth.forms import UserCreationForm
 
 class MealForm(ModelForm):
     class Meta:
@@ -49,3 +50,10 @@ class ProfileForm(ModelForm):
     class Meta:
         model = Profile
         fields = ['firstname', 'lastname', 'age', 'height', 'initWeight', 'goalWeight']
+
+class NewUserCreationForm(UserCreationForm):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.fields['username'].widget.attrs.update({'style': 'color: white'})
+            self.fields['password1'].widget.attrs.update({'style': 'color: white'})
+            self.fields['password2'].widget.attrs.update({'style': 'color: white'})

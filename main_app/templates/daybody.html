@@ -4,18 +4,23 @@
 <h1 class ="grey-text text-lighten-2 center-align">{{ month }} {{ curDay }}, {{ curYear }}</h1>
 
 
+
 {% if weight %}
-    <h3 class="grey-text text-lighten-2 center-align">Edit Today's <span class="light-green-text text-darken-1">Weight</span></h3>
+    <h3 class ="grey-text text-lighten-2 center-align">Current weight: {{weight}} Lbs</h3>
+    <h5 class="grey-text text-lighten-2 center-align">Edit Today's Weight</h5>
+    <form action="{% url 'daybody_update' curMonth curDay curYear %}" method="POST">
+        {% csrf_token %}
+        {{ body_data_create.as_p }}
+        <button type="submit" class="btn light-green darken-1 z-depth-3">Edit</button>
+    </form>
 {% else %}
-    <h3 class="grey-text text-lighten-2 center-align">Enter Today's Weight</h3>
+    <h5 class="grey-text text-lighten-2 center-align">Enter Today's Weight</h5>
+    <form action="{% url 'daybody_create' curMonth curDay curYear %}" method="POST">
+        {% csrf_token %}
+        {{ body_data_create.as_p }}
+        <button type="submit" class="btn light-green darken-1 z-depth-3">Add</button>
+    </form>
 {% endif %}
 
-<h4 class ="grey-text text-lighten-2 center-align">Current weight: {{weight}}</h4>
-
-<form action="{% url 'daybody_create' curMonth curDay curYear %}" method="POST">
-    {% csrf_token %}
-    {{ body_data_create.as_p }}
-    <button type="submit" class="btn light-green darken-1 z-depth-3">Add</button>
-</form>
 
 {% endblock %}

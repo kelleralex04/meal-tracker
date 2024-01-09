@@ -7,9 +7,9 @@
 
   <form action="" method="POST">
     {% csrf_token %}
-    <input type="submit" value="Yes - Delete!" class="btn blue darken-1 z-depth-3">
+    <input type="submit" value="Yes - Delete!" class="btn waves-effect waves-light blue darken-1 z-depth-3">
     <br>
     <br>
-    <a href="{% url 'foods_list' %}" class="btn blue darken-1 z-depth-3">Cancel</a>
+    <a href="{% url 'foods_list' %}" class="btn waves-effect waves-light blue darken-1 z-depth-3">Cancel</a>
   </form>
 {% endblock %}

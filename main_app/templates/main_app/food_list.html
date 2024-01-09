@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1 class="grey-text text-lighten-2 center-align">Food List</h1>
+<h1 class="grey-text text-lighten-2 center-align"><span class="red-text ">Food</span> List</h1>
 
 {% for f in food_list %}
     <a href="{% url 'foods_update' f.id %}">

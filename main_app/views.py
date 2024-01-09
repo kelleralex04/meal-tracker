@@ -4,12 +4,10 @@ import calendar
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import  LoginRequiredMixin
-from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Meal, Food, Profile, BodyData, MealFoodItem
 from django.views.generic import ListView, DetailView
-from django import forms
-from .forms import MealForm, MealFoodItemForm, BodyDataForm, FoodForm, ProfileForm
+from .forms import MealForm, MealFoodItemForm, BodyDataForm, FoodForm, ProfileForm, NewUserCreationForm
 
 
 
@@ -66,7 +64,6 @@ def calendarIndex(request):
     meal = Meal.objects.filter(date__gte=datetime(curYear, curMonth, 1), date__lte=datetime(curYear, curMonth, lastDateofMonth[1]))
     mealdates = set()
     for m in meal:
-        print(m.food.all())
         mealdates.add(m.date.day)
 
     weight = BodyData.objects.filter(date__gte=datetime(curYear, curMonth, 1), date__lte=datetime(curYear, curMonth, lastDateofMonth[1]))
@@ -77,7 +74,7 @@ def calendarIndex(request):
             bothdates.add(w.date.day)
         else:
             weightdates.add(w.date.day)
-
+    print(request)
     return render(request, 'calendar.html', {
         'curMonthText': curMonthText, 'curYear': curYear, 'curMonth': curMonth, 'curDay': curDay, 'firstInactiveDays': firstInactiveDays, 'activeDays': activeDays, 
         'lastDateOfPrevMonth': lastDateOfPrevMonth, 'lastInactiveDays': lastInactiveDays, 'todayDay': todayDay, 'todayMonth': todayMonth, 'todayYear': todayYear, 'mealdates': mealdates,
@@ -166,7 +163,7 @@ def signup(request):
     if request.method == 'POST':
         # This is how to create a 'user' form object
         # that includes the data from the browser
-        form = UserCreationForm(request.POST)
+        form = NewUserCreationForm(request.POST)
         if form.is_valid():
             # This will add the user to the database
             user = form.save()
@@ -176,7 +173,7 @@ def signup(request):
         else:
             error_message = 'You made an oopsie doopsie, go ahead and try again'
     # A bad POST or a GET request, so render signup.html with an empty form
-    form = UserCreationForm()
+    form = NewUserCreationForm()
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
 

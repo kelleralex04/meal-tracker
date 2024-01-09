@@ -5,7 +5,7 @@
 
 
 {% if weight %}
-    <h3 class="grey-text text-lighten-2 center-align">Edit Today's Weight</h3>
+    <h3 class="grey-text text-lighten-2 center-align">Edit Today's <span class="light-green-text text-darken-1">Weight</span></h3>
 {% else %}
     <h3 class="grey-text text-lighten-2 center-align">Enter Today's Weight</h3>
 {% endif %}
@@ -15,7 +15,7 @@
 <form action="{% url 'daybody_create' curMonth curDay curYear %}" method="POST">
     {% csrf_token %}
     {{ body_data_create.as_p }}
-    <button type="submit" class="btn blue darken-1 z-depth-3">Add</button>
+    <button type="submit" class="btn light-green darken-1 z-depth-3">Add</button>
 </form>
 
 {% endblock %}

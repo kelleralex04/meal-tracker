@@ -3,18 +3,18 @@
 
 
 
-<body class="grey darken-4">
-    <header id="dayHeader">
+<body class="row grey darken-4">
+    <header class="col-s8" id="dayHeader">
         <h1>{{ month }} {{ curDay }}, {{ curYear }}</h1>
     </header>
     <main id="dayMain">
-        <div class="column z-depth-2">
+        <div class="column col-s4 z-depth-3">
             <h2 class="dayMainHead light-green-text text-darken-1"><a href="{% url 'daybody' curMonth curDay curYear %}">Weigh-In</a></h2>
         </div>
-        <div class="column z-depth-2">
+        <div class="column col-s4 z-depth-3">
             <h2 class="dayMainHead red-text"><a href="{% url 'daymeal' curMonth curDay curYear %}">Meal Plan</a></h2>
         </div>
-        <div class="column z-depth-2">
+        <div class="column col-s4 z-depth-3">
             <h2 class="dayMainHead blue-text text-darken-2">Workout</h2>
         </div>
     </main>

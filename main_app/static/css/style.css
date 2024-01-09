@@ -67,7 +67,7 @@ a {
 }
 
 .wrapper {
-    background: 212121;
+    background: #212121;
 }
 
 .wrapper header {
@@ -91,7 +91,7 @@ a {
     background-color: #424242;
     /* border: 2px solid #616161; */
     border-radius: 8px;
-
+    height: 20vh;
   }
 
 #dayBody {
@@ -105,11 +105,11 @@ a {
     background-color: #424242;
     color: #e0e0e0;
     text-align: center;
-    padding: 20px;
+    padding: 10px 0 20px 0;
     /* border: 2px solid #616161; */
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
-    box-shadow: 0px 2px 2px black;
+    box-shadow: 0px 3px 3px black;
   }
   
 #dayMain {

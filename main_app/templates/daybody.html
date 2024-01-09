@@ -2,13 +2,13 @@
 {% block content %}
 
 <h1 class ="grey-text text-lighten-2 center-align">{{ month }} {{ curDay }}, {{ curYear }}</h1>
-<h2 class ="grey-text text-lighten-1 center-align">Today's Weight</h2>
-<h3>{{weight}}</h3>
+<h4 class ="grey-text center-align">Today's Weight</h4>
+<h3 class ="grey-text text-lighten-2 center-align">{{weight}}</h3>
 
 <form action="{% url 'daybody_create' curMonth curDay curYear %}" method="POST">
     {% csrf_token %}
     {{ body_data_create.as_p }}
-    <button type="submit" class="btn">Add</button>
+    <button type="submit" class="btn blue darken-1 z-depth-3">Add</button>
 </form>
 
 {% endblock %}

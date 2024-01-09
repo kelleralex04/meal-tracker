@@ -19,3 +19,6 @@ class BodyDataForm(ModelForm):
     class Meta:
         model = BodyData
         fields = ['weight']
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['weight'].widget.attrs.update({'style': 'color: white'})

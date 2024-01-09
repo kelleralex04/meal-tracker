@@ -1,20 +1,57 @@
-{% extends 'base.html' %}
-{% block content %}
-
-{% if object %}
-    <h1>Edit Profile</h1>
-{% else %}
-    <h1>Create Profile</h1>
-{% endif %}
 
 
-<form action="" method="POST">
-    {% csrf_token %}
-    <table>
-        {{ form.as_table }}
-    </table>
-    <input type="submit" value="Submit!" class="btn">
-</form>
+{% load static %}
 
-
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Calendar</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    </head>
+    <body class="grey darken-4">
+        <header class="navbar-fixed black">
+            <nav>
+                <div class="nav-wrapper black">
+                    <ul>
+                        <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Meal Tracker</a></li>
+                    </ul>
+                    <ul class="right">
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'calendar' %}">Calendar</a></li>
+                            <li><a href="{% url 'foods_list' %}">Food List</a></li>
+                            <li><a href="{% url 'foods_create' %}">Add Food</a></li>
+                            <li>
+                                <form action="{% url 'logout' %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="logoutButton grey">Log Out</button>
+                                </form>
+                            </li>
+                        {% else %}
+                            <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                            <li><a href="{% url 'login' %}">Log In</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <main class="container">
+            {% if object %}
+                <h1>Edit Profile</h1>
+            {% else %}
+                <h1>Create Profile</h1>
+            {% endif %}
+            <form action="" method="POST">
+                {% csrf_token %}
+                <table>
+                    {{ form.as_table }}
+                </table>
+                <input type="submit" value="Submit!" class="btn">
+            </form>
+        </main>
+    </body>
+</html>

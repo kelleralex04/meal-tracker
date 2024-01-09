@@ -68,7 +68,7 @@ def calendarIndex(request):
     for m in meal:
         mealdates.add(m.date.day)
 
-    weight = BodyData.objects.filter(date__gte=datetime(curYear, curMonth, 1), date__lte=datetime(curYear, curMonth, lastDateofMonth[1]), user=user)
+    weight = BodyData.objects.filter(date__gte=datetime(curYear, curMonth, 1), date__lte=datetime(curYear, curMonth, lastDateofMonth[1]))
     weightdates = set()
     for w in weight:
         if w.date.day in mealdates:
@@ -161,6 +161,10 @@ def calendarBodyCreate(request, curMonth, curDay, curYear):
     w = BodyData(date=curDate, weight=request.POST['weight'])
     w.save()
     return redirect(f'/calendar/m{curMonth}d{curDay}y{curYear}/body')
+
+# @login_required
+# def calendarBodyUpdate(request, curMonth, curDay, curYear):
+    
 
 def signup(request):
     error_message = ''

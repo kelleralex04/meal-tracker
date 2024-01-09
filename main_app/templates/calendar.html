@@ -16,8 +16,10 @@
                 <div class="nav-wrapper black">
                     <ul>
                         <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Meal Tracker</a></li>
-                        {% if user.is_authenticated %}
+                        {% if user.is_authenticated and profile %}
                             <li><a href="{% url 'profile_detail' profile.id %}" class="brand-logo center">{{ profile.firstname }} {{ profile.lastname }}</a></li>
+                        {% else %}
+                            <li><a href="{% url 'profile_create' %}" class="brand-logo center">Add Profile</a></li>
                         {% endif %}
                     </ul>
                     <ul class="right">
@@ -32,8 +34,8 @@
                             </form>
                         </li>
                         {% else %}
-                        <li><a href="{% url 'signup' %}">Sign Up</a></li>
-                        <li><a href="{% url 'login' %}">Log In</a></li>
+                            <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                            <li><a href="{% url 'login' %}">Log In</a></li>
                         {% endif %}
                     </ul>
                 </div>
@@ -73,14 +75,40 @@
                                         {{ i }}
                                     </a>
                                     {% if i in mealdates %}
-                                        <div style="color: white; margin-top: -100px; background: #1976d2;">Meal</div>
+                                        <a href="{% url 'day' curMonth i curYear %}">
+                                            <div style="color: white; margin-top: -100px; background: #1976d2;">Meal</div>
+                                        </a>
+                                    {% endif %}
+                                    {% if i in weightdates %}
+                                        <a href="{% url 'day' curMonth i curYear %}">
+                                            <div style="color: white; margin-top: -100px; background: rgb(124, 179, 66);">Weight</div>
+                                        </a>
+                                    {% endif %}
+                                    {% if i in bothdates %}
+                                        <a href="{% url 'day' curMonth i curYear %}">
+                                            <div style="color: white; margin-top: -100px; background: #1976d2;;">Meal</div>
+                                            <div style="color: white; background: rgb(124, 179, 66);">Weight</div>
+                                        </a>
                                     {% endif %}
                                 </li>
                             {% else %}
                                 <li>
                                     <a href="{% url 'day' curMonth i curYear %}" style="display: block; height: 100%;text-align: right; margin-right: 15px; margin-top: 10px;">{{ i }}</a>
                                     {% if i in mealdates %}
-                                        <div style="color: white; margin-top: -100px; background: #1976d2;">Meal</div>
+                                        <a href="{% url 'day' curMonth i curYear %}">
+                                            <div style="color: white; margin-top: -100px; background: #1976d2;">Meal</div>
+                                        </a>
+                                    {% endif %}
+                                    {% if i in weightdates %}
+                                        <a href="{% url 'day' curMonth i curYear %}">
+                                            <div style="color: white; margin-top: -100px; background: rgb(124, 179, 66);">Weight</div>
+                                        </a>
+                                    {% endif %}
+                                    {% if i in bothdates %}
+                                        <a href="{% url 'day' curMonth i curYear %}">
+                                            <div style="color: white; margin-top: -100px; background: #1976d2;;">Meal</div>
+                                            <div style="color: white; background: rgb(124, 179, 66);">Weight</div>
+                                        </a>
                                     {% endif %}
                                 </li>
                             {% endif %}

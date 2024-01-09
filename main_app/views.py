@@ -60,15 +60,28 @@ def calendarIndex(request):
         for i in range(6 - lastDayOfMonth):
             lastInactiveDays.append(i + 1)
 
+    bothdates = set()
+
     curMonthText = months[curMonth - 1]
     meal = Meal.objects.filter(date__gte=datetime(curYear, curMonth, 1), date__lte=datetime(curYear, curMonth, lastDateofMonth[1]))
     mealdates = set()
     for m in meal:
+        print(m.food.all())
         mealdates.add(m.date.day)
+
+    weight = BodyData.objects.filter(date__gte=datetime(curYear, curMonth, 1), date__lte=datetime(curYear, curMonth, lastDateofMonth[1]))
+    weightdates = set()
+    for w in weight:
+        if w.date.day in mealdates:
+            mealdates.remove(w.date.day)
+            bothdates.add(w.date.day)
+        else:
+            weightdates.add(w.date.day)
 
     return render(request, 'calendar.html', {
         'curMonthText': curMonthText, 'curYear': curYear, 'curMonth': curMonth, 'curDay': curDay, 'firstInactiveDays': firstInactiveDays, 'activeDays': activeDays, 
-        'lastDateOfPrevMonth': lastDateOfPrevMonth, 'lastInactiveDays': lastInactiveDays, 'todayDay': todayDay, 'todayMonth': todayMonth, 'todayYear': todayYear, 'mealdates': mealdates
+        'lastDateOfPrevMonth': lastDateOfPrevMonth, 'lastInactiveDays': lastInactiveDays, 'todayDay': todayDay, 'todayMonth': todayMonth, 'todayYear': todayYear, 'mealdates': mealdates,
+        'weightdates': weightdates, 'bothdates': bothdates
     })
 
 @login_required
@@ -89,20 +102,40 @@ def calendarMeal(request, curMonth, curDay, curYear):
         'curMonth': curMonth, 'month': month, 'curDay': curDay, 'curYear': curYear, 'meals': meals, 'meal_food_item_form': meal_food_item_form, 'foods': foods, 'meal_form': meal_form
     })
 
+@login_required
 def assoc_food(request, curMonth, curDay, curYear):
     curDate = datetime(curYear, curMonth, curDay)
     curMeal = Meal.objects.filter(date=curDate, mealType=request.POST['mealType'])
     f = Food.objects.get(name=request.POST['foodChoice'])
-    mfi = MealFoodItem(name=f.name, calories=f.calories, carbs=f.carbs, protein=f.protein, amount=f.amount, servings=request.POST['servings'])
+    servings = int(request.POST['servings'])
+    mfi = MealFoodItem(name=f.name, calories=(f.calories * servings), carbs=(f.carbs * servings), protein=(f.protein * servings), amount=(f.amount * servings), servings=servings)
     mfi.save()
-    fall = Food.objects.all()
-    print(fall)
-    if len(curMeal):
-        curMeal[0].food.add(mfi)
+    if len(curMeal) and len(curMeal[0].food.all()):
+        for i in curMeal[0].food.all().values():
+            if f.name == i['name']:
+                repeat = curMeal[0].food.get(name=f.name)
+                repeat.calories += f.calories * servings
+                repeat.carbs += f.carbs * servings
+                repeat.protein += f.protein * servings
+                repeat.amount += f.amount * servings
+                repeat.servings += servings
+                repeat.save()
+            else:
+                curMeal[0].food.add(mfi)
     else:
         m = Meal(date=curDate, mealType=request.POST['mealType'])
         m.save()
         m.food.add(mfi)
+    return redirect(f'/calendar/m{curMonth}d{curDay}y{curYear}/meal')
+
+@login_required
+def remove_food(request, curMonth, curDay, curYear, meal_id, food_id):
+    m = Meal.objects.get(id=meal_id)
+    m.food.remove(food_id)
+    MealFoodItem.objects.get(id=food_id).delete()
+    if not len(m.food.all()):
+        m.delete()
+
     return redirect(f'/calendar/m{curMonth}d{curDay}y{curYear}/meal')
 
 @login_required
@@ -119,6 +152,7 @@ def calendarBody(request, curMonth, curDay, curYear):
         'curMonth': curMonth, 'month': month, 'curDay': curDay, 'curYear': curYear, 'weight': w, 'body_data_create': bodyDataForm,
     })
 
+@login_required
 def calendarBodyCreate(request, curMonth, curDay, curYear):
     curDate = datetime(curYear, curMonth, curDay)
     w = BodyData(date=curDate, weight=request.POST['weight'])
@@ -166,8 +200,8 @@ class FoodList(LoginRequiredMixin, ListView):
     model = Food
 
 class FoodUpdate(LoginRequiredMixin, UpdateView):
+    form_class = FoodForm
     model = Food
-    fields = '__all__'
 
 class FoodDelete(LoginRequiredMixin, DeleteView):
     model = Food

@@ -23,8 +23,7 @@
             <th id="villa" scope="col">
                 Servings
             </th>
-            <th id="villa" scope="col">
-                Favorite?
+            <th>
             </th>
         </tr>
     </thead>
@@ -55,6 +54,12 @@
                     </td>
                     <td headers="par pbed1 stud">
                         {{food.servings}}
+                    </td>
+                    <td>
+                        <form action="{% url 'remove_food' curMonth curDay curYear meal.id food.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit">X</button>
+                        </form>
                     </td>
                 </tr>
                 {% endfor %}
@@ -87,6 +92,12 @@
                     <td headers="par pbed1 stud">
                         {{food.servings}}
                     </td>
+                    <td>
+                        <form action="{% url 'remove_food' curMonth curDay curYear meal.id food.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit">X</button>
+                        </form>
+                    </td>
                 </tr>
                 {% endfor %}
             {% endif %}
@@ -117,6 +128,12 @@
                     </td>
                     <td headers="par pbed1 stud">
                         {{food.servings}}
+                    </td>
+                    <td>
+                        <form action="{% url 'remove_food' curMonth curDay curYear meal.id food.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit">X</button>
+                        </form>
                     </td>
                 </tr>
                 {% endfor %}
@@ -149,6 +166,12 @@
                     <td headers="par pbed1 stud">
                         {{food.servings}}
                     </td>
+                    <td>
+                        <form action="{% url 'remove_food' curMonth curDay curYear meal.id food.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit">X</button>
+                        </form>
+                    </td>
                 </tr>
                 {% endfor %}
             {% endif %}
@@ -163,7 +186,7 @@
     {{ meal_form.as_p }}
     <select name="foodChoice" style="display: block; width: 20vw;" class="grey darken-3">
         {% for food in foods.all %}
-            <option class="grey-text text-lighten-2" value="{{ food.name }}">{{ food.name }}</option>
+            <option class="grey-text text-lighten-2" value="{{ food.name }}" style="color: red">{{ food.name }}</option>
         {% endfor %}
     </select>
     {{ meal_food_item_form.as_p }}

@@ -11,4 +11,4 @@ def profile_context(request):
             return {'profile': profile[0]}
         else: return {'test': test}
     else:
-        return {'test': test}
+        return {'profile': test}

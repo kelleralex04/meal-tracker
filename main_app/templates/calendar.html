@@ -16,24 +16,26 @@
                 <div class="nav-wrapper black">
                     <ul>
                         <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Meal Tracker</a></li>
-                        {% if user.is_authenticated %}
+                        {% if user.is_authenticated and profile %}
                             <li><a href="{% url 'profile_detail' profile.id %}" class="brand-logo center">{{ profile.firstname }} {{ profile.lastname }}</a></li>
+                        {% else %}
+                            <li><a href="{% url 'profile_create' %}" class="brand-logo center">Add Profile</a></li>
                         {% endif %}
                     </ul>
                     <ul class="right">
                         {% if user.is_authenticated %}
-                        <li><a href="{% url 'calendar' %}">Calendar</a></li>
-                        <li><a href="{% url 'foods_list' %}">Food List</a></li>
-                        <li><a href="{% url 'foods_create' %}">Add Food</a></li>
-                        <li>
-                            <form action="{% url 'logout' %}" method="POST">
-                                {% csrf_token %}
-                                <button type="submit" class="logoutButton grey">Log Out</button>
-                            </form>
-                        </li>
+                            <li><a href="{% url 'calendar' %}">Calendar</a></li>
+                            <li><a href="{% url 'foods_list' %}">Food List</a></li>
+                            <li><a href="{% url 'foods_create' %}">Add Food</a></li>
+                            <li>
+                                <form action="{% url 'logout' %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="logoutButton grey">Log Out</button>
+                                </form>
+                            </li>
                         {% else %}
-                        <li><a href="{% url 'signup' %}">Sign Up</a></li>
-                        <li><a href="{% url 'login' %}">Log In</a></li>
+                            <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                            <li><a href="{% url 'login' %}">Log In</a></li>
                         {% endif %}
                     </ul>
                 </div>

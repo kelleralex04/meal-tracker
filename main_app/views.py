@@ -166,8 +166,8 @@ class FoodList(LoginRequiredMixin, ListView):
     model = Food
 
 class FoodUpdate(LoginRequiredMixin, UpdateView):
+    form_class = FoodForm
     model = Food
-    fields = '__all__'
 
 class FoodDelete(LoginRequiredMixin, DeleteView):
     model = Food

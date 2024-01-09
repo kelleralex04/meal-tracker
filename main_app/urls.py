@@ -7,6 +7,7 @@ urlpatterns = [
     path('calendar/m<int:curMonth>d<int:i>y<int:curYear>/', views.calendarDetail, name='day'),
     path('calendar/m<int:curMonth>d<int:curDay>y<int:curYear>/meal/', views.calendarMeal, name='daymeal'),
     path('calendar/m<int:curMonth>d<int:curDay>y<int:curYear>/meal/assoc_food', views.assoc_food, name='assoc_food'),
+    path('calendar/m<int:curMonth>d<int:curDay>y<int:curYear>/meal/<int:meal_id>/remove_food/<int:food_id>/', views.remove_food, name='remove_food'),
     path('calendar/m<int:curMonth>d<int:curDay>y<int:curYear>/body/', views.calendarBody, name='daybody'),
     path('calendar/m<int:curMonth>d<int:curDay>y<int:curYear>/body/create', views.calendarBodyCreate, name='daybody_create'),
     path('accounts/signup/', views.signup, name="signup"),

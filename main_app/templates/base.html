@@ -19,7 +19,7 @@
                         <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Meal Tracker</a></li>
                         {% if user.is_authenticated and profile %}
                             <li><a href="{% url 'profile_detail' profile.id %}" class="brand-logo center">{{ profile.firstname }} {{ profile.lastname }}</a></li>
-                        {% else %}
+                        {% elif user.is_authenticated %}
                             <li><a href="{% url 'profile_create' %}" class="brand-logo center">Add Profile</a></li>
                         {% endif %}
                     </ul>

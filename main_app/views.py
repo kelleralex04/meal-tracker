@@ -66,6 +66,7 @@ def calendarIndex(request):
     meal = Meal.objects.filter(date__gte=datetime(curYear, curMonth, 1), date__lte=datetime(curYear, curMonth, lastDateofMonth[1]))
     mealdates = set()
     for m in meal:
+        print(m.food.all())
         mealdates.add(m.date.day)
 
     weight = BodyData.objects.filter(date__gte=datetime(curYear, curMonth, 1), date__lte=datetime(curYear, curMonth, lastDateofMonth[1]))
@@ -97,13 +98,11 @@ def calendarMeal(request, curMonth, curDay, curYear):
     month = months[curMonth - 1]
     meal_form = MealForm()
     meal_food_item_form = MealFoodItemForm()
-    for meal in meals:
-        for food in meal.food.all():
-            pass
     return render(request, 'daymeal.html', {
         'curMonth': curMonth, 'month': month, 'curDay': curDay, 'curYear': curYear, 'meals': meals, 'meal_food_item_form': meal_food_item_form, 'foods': foods, 'meal_form': meal_form
     })
 
+@login_required
 def assoc_food(request, curMonth, curDay, curYear):
     curDate = datetime(curYear, curMonth, curDay)
     curMeal = Meal.objects.filter(date=curDate, mealType=request.POST['mealType'])
@@ -111,7 +110,7 @@ def assoc_food(request, curMonth, curDay, curYear):
     servings = int(request.POST['servings'])
     mfi = MealFoodItem(name=f.name, calories=(f.calories * servings), carbs=(f.carbs * servings), protein=(f.protein * servings), amount=(f.amount * servings), servings=servings)
     mfi.save()
-    if len(curMeal):
+    if len(curMeal) and len(curMeal[0].food.all()):
         for i in curMeal[0].food.all().values():
             if f.name == i['name']:
                 repeat = curMeal[0].food.get(name=f.name)
@@ -130,6 +129,16 @@ def assoc_food(request, curMonth, curDay, curYear):
     return redirect(f'/calendar/m{curMonth}d{curDay}y{curYear}/meal')
 
 @login_required
+def remove_food(request, curMonth, curDay, curYear, meal_id, food_id):
+    m = Meal.objects.get(id=meal_id)
+    m.food.remove(food_id)
+    MealFoodItem.objects.get(id=food_id).delete()
+    if not len(m.food.all()):
+        m.delete()
+
+    return redirect(f'/calendar/m{curMonth}d{curDay}y{curYear}/meal')
+
+@login_required
 def calendarBody(request, curMonth, curDay, curYear):
     curDate = datetime(curYear, curMonth, curDay)
     month = months[curMonth - 1]
@@ -143,6 +152,7 @@ def calendarBody(request, curMonth, curDay, curYear):
         'curMonth': curMonth, 'month': month, 'curDay': curDay, 'curYear': curYear, 'weight': w, 'body_data_create': bodyDataForm,
     })
 
+@login_required
 def calendarBodyCreate(request, curMonth, curDay, curYear):
     curDate = datetime(curYear, curMonth, curDay)
     w = BodyData(date=curDate, weight=request.POST['weight'])

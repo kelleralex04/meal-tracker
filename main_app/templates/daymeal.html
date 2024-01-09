@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1 class="grey-text text-lighten-2 center-align">Meals for {{ month }} {{ curDay }}, {{ curYear }}</h1>
+<h1 class="grey-text text-lighten-2 center-align"><span class="red-text ">Meals</span> for {{ month }} {{ curDay }}, {{ curYear }}</h1>
 
 <table class="container grey darken-2 z-depth-5">
     <caption class="grey-text text-lighten-2"></caption>
@@ -58,7 +58,7 @@
                     <td>
                         <form action="{% url 'remove_food' curMonth curDay curYear meal.id food.id %}" method="POST">
                             {% csrf_token %}
-                            <button type="submit">X</button>
+                            <button type="submit" class="waves-effect waves-light btn-small red darken-2 z-depth-2">X</button>
                         </form>
                     </td>
                 </tr>
@@ -95,7 +95,7 @@
                     <td>
                         <form action="{% url 'remove_food' curMonth curDay curYear meal.id food.id %}" method="POST">
                             {% csrf_token %}
-                            <button type="submit">X</button>
+                            <button type="submit" class="waves-effect waves-light btn-small red darken-2 z-depth-2">X</button>
                         </form>
                     </td>
                 </tr>
@@ -132,7 +132,7 @@
                     <td>
                         <form action="{% url 'remove_food' curMonth curDay curYear meal.id food.id %}" method="POST">
                             {% csrf_token %}
-                            <button type="submit">X</button>
+                            <button type="submit" class="waves-effect waves-light btn-small red darken-2 z-depth-2">X</button>
                         </form>
                     </td>
                 </tr>
@@ -169,7 +169,7 @@
                     <td>
                         <form action="{% url 'remove_food' curMonth curDay curYear meal.id food.id %}" method="POST">
                             {% csrf_token %}
-                            <button type="submit">X</button>
+                            <button type="submit" class="waves-effect waves-light btn-small red darken-2 z-depth-2">X</button>
                         </form>
                     </td>
                 </tr>
@@ -184,13 +184,13 @@
 <form action="{% url 'assoc_food' curMonth curDay curYear %}" method="POST">
     {% csrf_token %}
     {{ meal_form.as_p }}
-    <select name="foodChoice" style="display: block; width: 20vw;" class="grey darken-3">
+    <select name="foodChoice" style="display: block; width: 20vw;" class=" grey darken-3">
         {% for food in foods.all %}
             <option class="grey-text text-lighten-2" value="{{ food.name }}" style="color: red">{{ food.name }}</option>
         {% endfor %}
     </select>
     {{ meal_food_item_form.as_p }}
-    <button type="submit" class="btn blue darken-1 z-depth-3">Add</button>
+    <button type="submit" class="waves-effect waves-light btn red z-depth-3">Add</button>
     <br>
     <br>
 </form>

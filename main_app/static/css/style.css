@@ -170,3 +170,6 @@ input:not([type]):focus:not([readonly])+label,input[type=text]:not(.browser-defa
     color: #1e88e5
 }
 
+input[type=submit] {
+    color: white !important;
+}

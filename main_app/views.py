@@ -66,7 +66,6 @@ def calendarIndex(request):
     meal = Meal.objects.filter(date__gte=datetime(curYear, curMonth, 1), date__lte=datetime(curYear, curMonth, lastDateofMonth[1]))
     mealdates = set()
     for m in meal:
-        print(m.food.all())
         mealdates.add(m.date.day)
 
     weight = BodyData.objects.filter(date__gte=datetime(curYear, curMonth, 1), date__lte=datetime(curYear, curMonth, lastDateofMonth[1]))
@@ -77,7 +76,7 @@ def calendarIndex(request):
             bothdates.add(w.date.day)
         else:
             weightdates.add(w.date.day)
-
+    print(request)
     return render(request, 'calendar.html', {
         'curMonthText': curMonthText, 'curYear': curYear, 'curMonth': curMonth, 'curDay': curDay, 'firstInactiveDays': firstInactiveDays, 'activeDays': activeDays, 
         'lastDateOfPrevMonth': lastDateOfPrevMonth, 'lastInactiveDays': lastInactiveDays, 'todayDay': todayDay, 'todayMonth': todayMonth, 'todayYear': todayYear, 'mealdates': mealdates,

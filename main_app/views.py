@@ -9,7 +9,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Meal, Food, Profile, BodyData, MealFoodItem
 from django.views.generic import ListView, DetailView
 from django import forms
-from .forms import MealForm, MealFoodItemForm, BodyDataForm
+from .forms import MealForm, MealFoodItemForm, BodyDataForm, FoodForm, ProfileForm
 
 
 
@@ -179,19 +179,6 @@ def signup(request):
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
 
-class FoodForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['name'].widget.attrs.update({'style': 'color: white'})
-        self.fields['calories'].widget.attrs.update({'style': 'color: white'})
-        self.fields['carbs'].widget.attrs.update({'style': 'color: white'})
-        self.fields['protein'].widget.attrs.update({'style': 'color: white'})
-        self.fields['amount'].widget.attrs.update({'style': 'color: white'})
-
-    class Meta:
-        model = Food
-        fields = '__all__'
-
 class FoodCreate(LoginRequiredMixin, CreateView):
     form_class = FoodForm
     model = Food
@@ -220,6 +207,5 @@ class ProfileDetail(LoginRequiredMixin, DetailView):
     model = Profile
 
 class ProfileUpdate(LoginRequiredMixin, UpdateView):
+    form_class = ProfileForm
     model = Profile
-    fields = '__all__'
-

@@ -22,18 +22,18 @@
                     </ul>
                     <ul class="right">
                         {% if user.is_authenticated %}
-                            <li><a href="{% url 'calendar' %}">Calendar</a></li>
-                            <li><a href="{% url 'foods_list' %}">Food List</a></li>
-                            <li><a href="{% url 'foods_create' %}">Add Food</a></li>
+                            <li><a class="waves-effect waves-light btn-small black" href="{% url 'calendar' %}">Calendar</a></li>
+                            <li><a class="waves-effect waves-light btn-small black" href="{% url 'foods_list' %}">Food List</a></li>
+                            <li><a class="waves-effect waves-light btn-small black" href="{% url 'foods_create' %}">Add Food</a></li>
                             <li>
                                 <form action="{% url 'logout' %}" method="POST">
                                     {% csrf_token %}
-                                    <button type="submit" class="logoutButton grey">Log Out</button>
+                                    <button type="submit" class="waves-effect waves-light btn-large black">Log Out</button>
                                 </form>
                             </li>
                         {% else %}
-                            <li><a href="{% url 'signup' %}">Sign Up</a></li>
-                            <li><a href="{% url 'login' %}">Log In</a></li>
+                            <li><a class="waves-effect waves-light btn-small black" href="{% url 'signup' %}">Sign Up</a></li>
+                            <li><a class="waves-effect waves-light btn-small black" href="{% url 'login' %}">Log In</a></li>
                         {% endif %}
                     </ul>
                 </div>
@@ -41,16 +41,16 @@
         </header>
         <main class="container">
             {% if object %}
-                <h1>Edit Profile</h1>
+                <h1 class="grey-text text-lighten-2 center-align">Edit Profile</h1>
             {% else %}
-                <h1>Create Profile</h1>
+                <h1 class="grey-text text-lighten-2 center-align">Create Profile</h1>
             {% endif %}
             <form action="" method="POST">
                 {% csrf_token %}
                 <table>
                     {{ form.as_table }}
                 </table>
-                <input type="submit" value="Submit!" class="btn">
+                <input type="submit" value="Submit!" class="btn waves-effect waves-light blue darken-1 z-depth-3">
             </form>
         </main>
     </body>

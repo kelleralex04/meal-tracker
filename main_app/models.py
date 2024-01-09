@@ -31,6 +31,8 @@ class Food(Ingredient):
 
 class MealFoodItem(Ingredient):
     servings = models.IntegerField()
+    def __str__(self):
+        return self.name
 
 class Meal(models.Model):
     food = models.ManyToManyField(MealFoodItem)

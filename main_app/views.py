@@ -85,6 +85,9 @@ def calendarMeal(request, curMonth, curDay, curYear):
     month = months[curMonth - 1]
     meal_form = MealForm()
     meal_food_item_form = MealFoodItemForm()
+    for meal in meals:
+        for food in meal.food.all():
+            pass
     return render(request, 'daymeal.html', {
         'curMonth': curMonth, 'month': month, 'curDay': curDay, 'curYear': curYear, 'meals': meals, 'meal_food_item_form': meal_food_item_form, 'foods': foods, 'meal_form': meal_form
     })
@@ -93,12 +96,21 @@ def assoc_food(request, curMonth, curDay, curYear):
     curDate = datetime(curYear, curMonth, curDay)
     curMeal = Meal.objects.filter(date=curDate, mealType=request.POST['mealType'])
     f = Food.objects.get(name=request.POST['foodChoice'])
-    mfi = MealFoodItem(name=f.name, calories=f.calories, carbs=f.carbs, protein=f.protein, amount=f.amount, servings=request.POST['servings'])
+    servings = int(request.POST['servings'])
+    mfi = MealFoodItem(name=f.name, calories=(f.calories * servings), carbs=(f.carbs * servings), protein=(f.protein * servings), amount=(f.amount * servings), servings=servings)
     mfi.save()
-    fall = Food.objects.all()
-    print(fall)
     if len(curMeal):
-        curMeal[0].food.add(mfi)
+        for i in curMeal[0].food.all().values():
+            if f.name == i['name']:
+                repeat = curMeal[0].food.get(name=f.name)
+                repeat.calories += f.calories * servings
+                repeat.carbs += f.carbs * servings
+                repeat.protein += f.protein * servings
+                repeat.amount += f.amount * servings
+                repeat.servings += servings
+                repeat.save()
+            else:
+                curMeal[0].food.add(mfi)
     else:
         m = Meal(date=curDate, mealType=request.POST['mealType'])
         m.save()

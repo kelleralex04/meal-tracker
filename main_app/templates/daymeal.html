@@ -23,9 +23,6 @@
             <th id="villa" scope="col">
                 Servings
             </th>
-            <th id="villa" scope="col">
-                Favorite?
-            </th>
         </tr>
     </thead>
     <tbody class="grey-text text-lighten-1">
@@ -162,7 +159,7 @@
     {{ meal_form.as_p }}
     <select name="foodChoice" style="display: block; width: 20vw;" class="grey darken-3">
         {% for food in foods.all %}
-            <option class="grey-text text-lighten-2" value="{{ food.name }}">{{ food.name }}</option>
+            <option class="grey-text text-lighten-2" value="{{ food.name }}" style="color: red">{{ food.name }}</option>
         {% endfor %}
     </select>
     {{ meal_food_item_form.as_p }}

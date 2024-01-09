@@ -11,6 +11,10 @@ class MealFoodItemForm(ModelForm):
         model = MealFoodItem
         fields = ['servings']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['servings'].widget.attrs.update({'style': 'color: white'})
+
 class BodyDataForm(ModelForm):
     class Meta:
         model = BodyData

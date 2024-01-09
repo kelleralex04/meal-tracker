@@ -158,13 +158,18 @@ def calendarBody(request, curMonth, curDay, curYear):
 @login_required
 def calendarBodyCreate(request, curMonth, curDay, curYear):
     curDate = datetime(curYear, curMonth, curDay)
-    w = BodyData(date=curDate, weight=request.POST['weight'])
+    user = User.objects.get(id=request.user.id)
+    w = BodyData(date=curDate, weight=request.POST['weight'], user=user)
     w.save()
-    return redirect(f'/calendar/m{curMonth}d{curDay}y{curYear}/body')
+    return redirect(f'/calendar/m{curMonth}d{curDay}y{curYear}/body')    
 
-# @login_required
-# def calendarBodyUpdate(request, curMonth, curDay, curYear):
-    
+@login_required
+def calendarBodyUpdate(request, curMonth, curDay, curYear):
+    curDate = datetime(curYear, curMonth, curDay)
+    user = User.objects.get(id=request.user.id)
+    return render(request, 'daybody.html', {
+        
+    })
 
 def signup(request):
     error_message = ''

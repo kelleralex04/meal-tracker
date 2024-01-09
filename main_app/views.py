@@ -60,15 +60,27 @@ def calendarIndex(request):
         for i in range(6 - lastDayOfMonth):
             lastInactiveDays.append(i + 1)
 
+    bothdates = set()
+
     curMonthText = months[curMonth - 1]
     meal = Meal.objects.filter(date__gte=datetime(curYear, curMonth, 1), date__lte=datetime(curYear, curMonth, lastDateofMonth[1]))
     mealdates = set()
     for m in meal:
         mealdates.add(m.date.day)
 
+    weight = BodyData.objects.filter(date__gte=datetime(curYear, curMonth, 1), date__lte=datetime(curYear, curMonth, lastDateofMonth[1]))
+    weightdates = set()
+    for w in weight:
+        if w.date.day in mealdates:
+            mealdates.remove(w.date.day)
+            bothdates.add(w.date.day)
+        else:
+            weightdates.add(w.date.day)
+
     return render(request, 'calendar.html', {
         'curMonthText': curMonthText, 'curYear': curYear, 'curMonth': curMonth, 'curDay': curDay, 'firstInactiveDays': firstInactiveDays, 'activeDays': activeDays, 
-        'lastDateOfPrevMonth': lastDateOfPrevMonth, 'lastInactiveDays': lastInactiveDays, 'todayDay': todayDay, 'todayMonth': todayMonth, 'todayYear': todayYear, 'mealdates': mealdates
+        'lastDateOfPrevMonth': lastDateOfPrevMonth, 'lastInactiveDays': lastInactiveDays, 'todayDay': todayDay, 'todayMonth': todayMonth, 'todayYear': todayYear, 'mealdates': mealdates,
+        'weightdates': weightdates, 'bothdates': bothdates
     })
 
 @login_required

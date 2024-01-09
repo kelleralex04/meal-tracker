@@ -199,12 +199,19 @@ def signup(request):
     return render(request, 'registration/signup.html', context)
 
 class FoodCreate(LoginRequiredMixin, CreateView):
-    form_class = FoodForm
     model = Food
+    form_class = FoodForm
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
     success_url = '/foods'
 
-class FoodList(LoginRequiredMixin, ListView):
-    model = Food
+@login_required
+def foodIndex(request):
+    foods = Food.objects.filter(user=request.user)
+    return render(request, 'foods_index.html', {
+        'foods': foods
+    })
 
 class FoodUpdate(LoginRequiredMixin, UpdateView):
     form_class = FoodForm
@@ -216,7 +223,7 @@ class FoodDelete(LoginRequiredMixin, DeleteView):
 
 class ProfileCreate(LoginRequiredMixin, CreateView):
     model = Profile
-    fields = ['firstname', 'lastname', 'age', 'height', 'initWeight', 'goalWeight']
+    form_class = ProfileForm
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)

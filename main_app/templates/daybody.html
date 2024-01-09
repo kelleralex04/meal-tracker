@@ -2,8 +2,15 @@
 {% block content %}
 
 <h1 class ="grey-text text-lighten-2 center-align">{{ month }} {{ curDay }}, {{ curYear }}</h1>
-<h4 class ="grey-text center-align">Today's Weight</h4>
-<h3 class ="grey-text text-lighten-2 center-align">{{weight}}</h3>
+
+
+{% if weight %}
+    <h3 class="grey-text text-lighten-2 center-align">Edit Today's Weight</h3>
+{% else %}
+    <h3 class="grey-text text-lighten-2 center-align">Enter Today's Weight</h3>
+{% endif %}
+
+<h4 class ="grey-text text-lighten-2 center-align">Current weight: {{weight}}</h4>
 
 <form action="{% url 'daybody_create' curMonth curDay curYear %}" method="POST">
     {% csrf_token %}

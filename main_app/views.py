@@ -161,6 +161,10 @@ def calendarBodyCreate(request, curMonth, curDay, curYear):
     w.save()
     return redirect(f'/calendar/m{curMonth}d{curDay}y{curYear}/body')
 
+# @login_required
+# def calendarBodyUpdate(request, curMonth, curDay, curYear):
+    
+
 def signup(request):
     error_message = ''
     if request.method == 'POST':

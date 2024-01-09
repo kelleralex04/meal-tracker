@@ -61,3 +61,4 @@ class Profile(models.Model):
 class BodyData(models.Model):
     weight = models.IntegerField()
     date = models.DateField(default=datetime.now)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -11,7 +11,13 @@
     <form action="{% url 'daybody_update' curMonth curDay curYear %}" method="POST">
         {% csrf_token %}
         {{ body_data_create.as_p }}
-        <button type="submit" class="btn light-green darken-1 z-depth-3">Edit</button>
+        <button type="submit" class="btn light-green darken-1 z-depth-3">Update</button>
+    </form>
+    <br>
+    <br>
+    <form action="{% url 'daybody_delete' curMonth curDay curYear %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn light-green darken-1 z-depth-3">Delete</button>
     </form>
 {% else %}
     <h5 class="grey-text text-lighten-2 center-align">Enter Today's Weight</h5>

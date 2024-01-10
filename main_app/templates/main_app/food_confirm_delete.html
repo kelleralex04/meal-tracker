@@ -7,9 +7,7 @@
 
   <form action="" method="POST">
     {% csrf_token %}
-    <input type="submit" value="Yes - Delete!" class="waves-effect waves-light btn red z-depth-3">
-    <br>
-    <br>
-    <a href="{% url 'foods_list' %}" class="waves-effect waves-light btn red z-depth-3">Cancel</a>
+    <input type="submit" value="Yes - Delete!" class="left waves-effect waves-light btn red z-depth-3">
+    <a href="{% url 'foods_list' %}" class="right waves-effect waves-light btn red z-depth-3">Cancel</a>
   </form>
 {% endblock %}

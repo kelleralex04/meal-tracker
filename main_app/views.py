@@ -153,8 +153,9 @@ def remove_food(request, curMonth, curDay, curYear, meal_id, food_id):
 @login_required
 def calendarBody(request, curMonth, curDay, curYear):
     curDate = datetime(curYear, curMonth, curDay)
+    user = User.objects.get(id=request.user.id)
     month = months[curMonth - 1]
-    weight = BodyData.objects.filter(date=curDate)
+    weight = BodyData.objects.filter(date=curDate, user=user)
     bodyDataForm = BodyDataForm()
     if len(weight):
         w = weight[0].weight

@@ -18,7 +18,7 @@
             <nav>
                 <div class="nav-wrapper black">
                     <ul>
-                        <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Meal Tracker</a></li>
+                        <li><a href="{% url 'day' curMonth curDay curYear %}" class="left brand-logo">&nbsp;&nbsp;Meal Tracker</a></li>
                     </ul>
                     <ul class="right">
                         {% if user.is_authenticated %}

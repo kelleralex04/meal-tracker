@@ -116,7 +116,7 @@ def assoc_food(request, curMonth, curDay, curYear):
     curDate = datetime(curYear, curMonth, curDay)
     user = User.objects.get(id=request.user.id)
     curMeal = Meal.objects.filter(date=curDate, mealType=request.POST['mealType'], user=user)
-    f = Food.objects.get(name=request.POST['foodChoice'])
+    f = Food.objects.get(name=request.POST['foodChoice'], user=user)
     servings = int(request.POST['servings'])
     mfi = MealFoodItem(name=f.name, calories=(f.calories * servings), carbs=(f.carbs * servings), protein=(f.protein * servings), amount=(f.amount * servings), servings=servings)
     mfi.save()

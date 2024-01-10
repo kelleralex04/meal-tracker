@@ -95,11 +95,20 @@ def calendarMeal(request, curMonth, curDay, curYear):
     user = User.objects.get(id=request.user.id)
     meals = Meal.objects.filter(date=datetime(curYear,curMonth,curDay), user=user)
     foods = Food.objects.filter(user=user)
+    totalCalories = 0
+    totalCarbs = 0
+    totalProtein = 0
+    for meal in meals:
+        for food in meal.food.all():
+            totalCalories += food.calories
+            totalCarbs += food.carbs
+            totalProtein += food.protein
     month = months[curMonth - 1]
     meal_form = MealForm()
     meal_food_item_form = MealFoodItemForm()
     return render(request, 'daymeal.html', {
-        'curMonth': curMonth, 'month': month, 'curDay': curDay, 'curYear': curYear, 'meals': meals, 'meal_food_item_form': meal_food_item_form, 'foods': foods, 'meal_form': meal_form
+        'curMonth': curMonth, 'month': month, 'curDay': curDay, 'curYear': curYear, 'meals': meals, 'meal_food_item_form': meal_food_item_form, 'foods': foods, 'meal_form': meal_form,
+        'totalCalories': totalCalories, 'totalCarbs': totalCarbs, 'totalProtein': totalProtein
     })
 
 @login_required

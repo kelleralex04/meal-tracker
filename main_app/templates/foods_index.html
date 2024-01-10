@@ -3,7 +3,7 @@
 
 <h1 class="grey-text text-lighten-2 center-align"><span class="red-text ">Food</span> List</h1>
 
-{% for f in food_list %}
+{% for f in foods %}
     <a href="{% url 'foods_update' f.id %}">
         <div class="card grey darken-3 z-depth-3">
             <div class="card-content">

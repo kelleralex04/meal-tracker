@@ -35,7 +35,7 @@ class FoodForm(ModelForm):
 
     class Meta:
         model = Food
-        fields = '__all__'
+        fields = ['name', 'calories', 'carbs', 'protein', 'amount']
 
 class ProfileForm(ModelForm):
     def __init__(self, *args, **kwargs):

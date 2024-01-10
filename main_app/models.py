@@ -28,7 +28,7 @@ class Food(Ingredient):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('foods_update', kwargs={'food_id': self.id})
+        return reverse('foods_update', kwargs={'pk': self.id})
 
 class MealFoodItem(Ingredient):
     servings = models.IntegerField()

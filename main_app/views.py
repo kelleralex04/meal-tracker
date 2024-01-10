@@ -216,6 +216,7 @@ def foodIndex(request):
 class FoodUpdate(LoginRequiredMixin, UpdateView):
     form_class = FoodForm
     model = Food
+    success_url = '/foods'
 
 class FoodDelete(LoginRequiredMixin, DeleteView):
     model = Food

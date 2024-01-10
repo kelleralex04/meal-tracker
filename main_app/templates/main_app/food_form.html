@@ -14,7 +14,7 @@
       {{ form.as_table }}
     </table>
     <br>
-    <input type="submit" value="Submit!" class="left waves-effect waves-light btn red z-depth-3">
+    <button type="submit" class="left waves-effect waves-light btn red z-depth-3">Update</button>
   </form>
   {% if object %}
     <a href="{% url 'foods_delete' object.id %}" class="right waves-effect waves-light btn red z-depth-3">Delete</a>

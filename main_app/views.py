@@ -94,7 +94,7 @@ def calendarDetail(request, curMonth, i, curYear):
 def calendarMeal(request, curMonth, curDay, curYear):
     user = User.objects.get(id=request.user.id)
     meals = Meal.objects.filter(date=datetime(curYear,curMonth,curDay), user=user)
-    foods = Food.objects.all()
+    foods = Food.objects.filter(user=user)
     month = months[curMonth - 1]
     meal_form = MealForm()
     meal_food_item_form = MealFoodItemForm()
@@ -216,6 +216,7 @@ def foodIndex(request):
 class FoodUpdate(LoginRequiredMixin, UpdateView):
     form_class = FoodForm
     model = Food
+    success_url = '/foods'
 
 class FoodDelete(LoginRequiredMixin, DeleteView):
     model = Food

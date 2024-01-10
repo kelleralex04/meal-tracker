@@ -7,16 +7,18 @@
   <h1 class="grey-text text-lighten-2 center-align">Add <span class="red-text">Food</span></h1>
 {% endif %}
 
-<div>
-  <form action="" method="POST">
-    {% csrf_token %}
-    <table>
-      {{ form.as_table }}
-    </table>
-    <input type="submit" value="Submit!" class="left waves-effect waves-light btn red z-depth-3">
-  </form>
-  {% if object %}
-    <a href="{% url 'foods_delete' object.id %}" class="right waves-effect waves-light btn red z-depth-3">Delete</a>
-  {% endif %}
-</div>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <table>
+    {{ form.as_table }}
+  </table>
+  <br>
+  <input type="submit" value="Submit!" class="waves-effect waves-light btn red z-depth-3">
+</form>
+<br>
+{% if object %}
+  <a href="{% url 'foods_delete' object.id %}" class="waves-effect waves-light btn red z-depth-3">Delete</a>
+{% endif %}
+
 {% endblock %}

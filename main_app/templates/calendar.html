@@ -15,11 +15,11 @@
             <nav>
                 <div class="nav-wrapper black">
                     <ul>
-                        <li><a href="/" style="font-size:50px" class="left brand-logo">&nbsp;&nbsp;Meal Tracker</a></li>
+                        <li><a href="/" style="font-size:40px" class="left brand-logo">&nbsp;&nbsp;Meal Tracker</a></li>
                         {% if user.is_authenticated and profile %}
-                            <li><a href="{% url 'profile_detail' profile.id %}" class="brand-logo center">{{ profile.firstname }} {{ profile.lastname }}</a></li>
+                            <li><a href="{% url 'profile_detail' profile.id %}" class="brand-logo center" style="font-size:28px">{{ profile.firstname }} {{ profile.lastname }}</a></li>
                         {% else %}
-                            <li><a href="{% url 'profile_create' %}" class="brand-logo center">Add Profile</a></li>
+                            <li><a href="{% url 'profile_create' %}" class="brand-logo center" style="font-size:28px">Add Profile</a></li>
                         {% endif %}
                     </ul>
                     <ul class="right">

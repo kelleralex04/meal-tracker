@@ -22,9 +22,9 @@
                     </ul>
                     <ul class="right">
                         {% if user.is_authenticated %}
-                            <li><a class="waves-effect waves-light btn-small black" href="{% url 'calendar' %}">Calendar</a></li>
-                            <li><a class="waves-effect waves-light btn-small black" href="{% url 'foods_list' %}">Food List</a></li>
-                            <li><a class="waves-effect waves-light btn-small black" href="{% url 'foods_create' %}">Add Food</a></li>
+                            <li><a class="waves-effect waves-light btn black" href="{% url 'calendar' %}">Calendar</a></li>
+                            <li><a class="waves-effect waves-light btn black" href="{% url 'foods_list' %}">Food List</a></li>
+                            <li><a class="waves-effect waves-light btn black" href="{% url 'foods_create' %}">Add Food</a></li>
                             <li>
                                 <form action="{% url 'logout' %}" method="POST">
                                     {% csrf_token %}
@@ -32,8 +32,8 @@
                                 </form>
                             </li>
                         {% else %}
-                            <li><a class="waves-effect waves-light btn-small black" href="{% url 'signup' %}">Sign Up</a></li>
-                            <li><a class="waves-effect waves-light btn-small black" href="{% url 'login' %}">Log In</a></li>
+                            <li><a class="waves-effect waves-light btn black" href="{% url 'signup' %}">Sign Up</a></li>
+                            <li><a class="waves-effect waves-light btn black" href="{% url 'login' %}">Log In</a></li>
                         {% endif %}
                     </ul>
                 </div>

@@ -14,10 +14,10 @@ from pathlib import Path
 from datetime import datetime
 
 import environ
+import os
 
 environ.Env()
 environ.Env.read_env()
-import os
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

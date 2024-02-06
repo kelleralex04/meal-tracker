@@ -7,6 +7,7 @@ django-environ==0.11.2
 django-on-heroku==1.1.2
 environ==1.0
 gunicorn==21.2.0
+importlib-metadata==4.6.4
 jmespath==1.0.1
 launchpadlib==1.10.16
 oauthlib==3.2.0

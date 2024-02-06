@@ -138,3 +138,6 @@ todayYear = date.year
 
 LOGIN_REDIRECT_URL= f'/calendar/m{todayMonth}d{todayDay}y{todayYear}'
 LOGOUT_REDIRECT_URL= '/'
+
+import django_on_heroku
+django_on_heroku.settings(locals())

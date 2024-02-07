@@ -22,7 +22,7 @@ their starting weight, height, and goal weight.
 - Heroku
 
 ### Getting Started
-[MEAL TRACKER APP](To be edited)
+[MEAL TRACKER APP](https://meal-tracker-seir-1030-990fe6b484f0.herokuapp.com/)
 
 [Trello](https://trello.com/b/JcMsvGqo/django-unchained)
 [Figma](https://www.figma.com/file/UPbWRjdt0spSjM4GRZrjlI/RAW-OUTPUT-wireframe?type=design&node-id=0-1&mode=design&t=iRExOJLDfGrzZtRs-0)
